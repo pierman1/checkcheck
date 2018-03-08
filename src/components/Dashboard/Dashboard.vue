@@ -1,20 +1,19 @@
 <template lang="html">
   <div class="dashboard">
     <!-- <team></team> -->
-    <container></container>
+    <Header></Header>
   </div>
 </template>
 
 <script>
-import Container from './Container'
-// import Team from '../Team/Team'
+import Header from './Header'
+// import Teams from '../Team/Teams'
 import { bus } from '../../main'
 
 export default {
   name: 'Dashboard',
   components: {
-    Container,
-    // Team
+    Header
   },
   created() {
     this.loadProfile()
@@ -27,11 +26,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   .dashboard {
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 100%;
     background-color: #fff;
   }
 </style>

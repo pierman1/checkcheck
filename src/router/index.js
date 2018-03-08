@@ -5,6 +5,8 @@ import Dashboard from '../components/Dashboard/Dashboard'
 import Teams from '../components/Teams'
 import Team from '../components/Team/Team'
 import Playbooks from '../components/Playbooks/Playbooks'
+import PlaybooksPage from '../components/Playbooks/Playbooks.page.vue'
+import ChecklistsPage from '../components/Checklists/Checklists.page.vue'
 import Profile from '../components/Profile/Profile'
 
 
@@ -86,9 +88,25 @@ export default new Router({
       }
     },
     {
-      path: '/playbook/:playbook',
+      path: '/playbooks',
       name: 'playbooks',
+      component: PlaybooksPage,
+      beforeEnter: (to, from, next) => {
+        checkUser(to, from, next)
+      }
+    },
+    {
+      path: '/playbooks/:playbook',
+      name: 'playbook',
       component: Playbooks,
+      beforeEnter: (to, from, next) => {
+        checkUser(to, from, next)
+      }
+    },
+    {
+      path: '/checklists',
+      name: 'checklists',
+      component: ChecklistsPage,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       }

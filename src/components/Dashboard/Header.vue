@@ -1,13 +1,12 @@
 <template lang="html">
-  <div class="main">
-    <h1>Checkcheck</h1>
-    <!-- <pp</p> -->
+  <div class="page-header">
+    <h2>Dashboard</h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Main',
+  name: 'Header',
   methods: {
     showteam: function() {
       console.log('showTeam!!!!');
@@ -16,9 +15,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .main {
-    padding: 0 40px;
-    margin-top: 40px;
+<style scoped lang="scss">
+  .page-header {
+    padding: 0 20px;
+    width: 100%;
+    background-color: #fff;
   }
 </style>

@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Navigation></Navigation>
-    <router-view :key="$route.path"></router-view>
+    <Navigation v-show="user"></Navigation>
+    <div class="flex-container">
+      <NavigationSecond v-show="user"></NavigationSecond>
+      <router-view :key="$route.path"></router-view>
+    </div>
   </div>
 
 </template>
@@ -10,13 +13,25 @@
 <script>
   import Header from './components/Header/Header.page.vue'
   import Navigation from './components/Navigation/Navigation.vue'
+  import NavigationSecond from './components/Navigation/NavigationSecond.vue'
   import firebase from 'firebase'
 
   export default {
     name: 'app',
+    data() {
+      return {
+        user: false
+      }
+    },
     components: {
       Header,
-      Navigation
+      Navigation,
+      NavigationSecond
+    },
+    updated() {
+      this.user = firebase.auth().currentUser
+      console.log(firebase.auth().currentUser);
+      console.log('joe');
     }
   }
 </script>
@@ -35,6 +50,12 @@
   p {
     font-weight: 300;
     line-height: 1.5em;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 
   #app {

@@ -1,11 +1,15 @@
 <template lang="html">
   <div class="navigation">
-    <Teams :teams="teams" :active="active" :route="true"></Teams>
+    <Teamswitcher></Teamswitcher>
+    <Teams :teams="teams" :route="'team'"></Teams>
+    <PlaybooksList :playbooks="playbooks" :route="'playbook'"></PlaybooksList>
   </div>
 </template>
 
 <script>
 import Teams from '../Teams/Teams.vue'
+import PlaybooksList from '../Playbooks/PlaybooksList.vue'
+import Teamswitcher from '../Teamswitcher/Teamswitcher.vue'
 import { db } from '../../firebase'
 
 export default {
@@ -13,15 +17,19 @@ export default {
   data () {
     return {
       teams: [],
+      playbooks: [],
       active: 1
     }
   },
   components: {
-    Teams
+    Teams,
+    PlaybooksList,
+    Teamswitcher
   },
   firestore() {
     return {
-      teams: db.collection('teams')
+      teams: db.collection('teams'),
+      playbooks: db.collection('playbooks')
     }
   }
 }
