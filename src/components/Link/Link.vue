@@ -1,6 +1,6 @@
 <template lang="html">
 
-<router-link :to="{ name: '', params: {} }">
+<router-link class="link" :to="{ name: '', params: {} }">
   {{text}}
 </router-link>
 
@@ -13,5 +13,9 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="scss">
+  a {
+    color: initial;
+    text-decoration: none;
+  }
 </style>

@@ -1,9 +1,9 @@
 <template lang="html">
-  <li class="list-item">
-    <router-link @click="showProjects" :to="{ name: 'team', params: {id: data['.key']} }">
+  <!-- <li class=m"> -->
+    <router-link class="list-item" @click="showProjects" :to="{ name: 'team', params: {id: data['.key']} }">
       {{data.name}}
     </router-link>
-  </li>
+  <!-- </li> -->
 </template>
 
 <script>
@@ -31,10 +31,12 @@ export default {
     transition: 250ms;
     border-radius: 5px;
     margin-bottom: 4px;
+    width: 100%;
     padding: 5px 20px;
 
     &:first-of-type,
-    &:hover {
+    &:hover,
+    &:active {
       background-color: #D7EBFF;
     }
   }

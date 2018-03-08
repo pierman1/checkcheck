@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="main">
-    <h1>Main Container</h1>
-    <p>Welkom bij Checkcheck, dé checkapp</p>
+    <h1>Checkcheck</h1>
+    <!-- <pp</p> -->
   </div>
 </template>
 
@@ -19,6 +19,6 @@ export default {
 <style lang="scss">
   .main {
     padding: 0 40px;
-    margin-top: 80px;
+    margin-top: 40px;
   }
 </style>

@@ -3,14 +3,7 @@
     <h1>Team: {{ team.name }}</h1>
 
     <h2>Playbooks</h2>
-    <div>
-      <input type="text"
-        v-model="newplaybook"
-        @keyup.enter="addplaybook">
-      <button class="remove"  @click="addplaybook">
-        Add playbook
-      </button>
-    </div>
+
 
     <ul class="teamList">
       <li v-for="list in lists" >
@@ -18,7 +11,7 @@
           {{ list.name }}
         </router-link>
 
-        <button @click="deleteteam(list)">
+        <button @click="deleteplaybook(list)">
           Remove
         </button>
       </li>

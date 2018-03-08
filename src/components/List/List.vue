@@ -15,8 +15,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   ul {
     padding: 0 20px;;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 </style>
