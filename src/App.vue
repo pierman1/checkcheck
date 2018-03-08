@@ -4,7 +4,9 @@
     <Navigation v-show="user"></Navigation>
     <div class="flex-container">
       <NavigationSecond v-show="user"></NavigationSecond>
-      <router-view :key="$route.path"></router-view>
+      <transition name="fade">
+        <router-view :key="$route.path"></router-view>
+      </transition>
     </div>
   </div>
 
@@ -59,7 +61,8 @@
   }
 
   #app {
-    background-color: #F4F4F4;
+    // background-color: #F4F4F4;
+    background-color: #fff;
     min-height: 100vh;
     display: flex;
     flex-direction: row;
@@ -74,83 +77,20 @@
     list-style: none;
   }
 
-  /* Slide Left */
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .35s;
+}
 
-  .slide-left-enter-active, .slide-left-leave-active {
-    transition: transform .15s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
+.fade-enter-active {
+  transition-delay: .35s;
+  background-color: black;
+}
 
-  .slide-left-enter {
-    transform: translateX(100%);
-    opacity: 1;
-  }
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
 
-  .slide-left-leave-to {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-
-  /* Slide Right */
-
-  .slide-right-enter-active, .slide-right-leave-active {
-    transition: transform .15s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-
-  .slide-right-enter {
-    transform: translateX(-100%);
-    opacity: 1;
-  }
-
-  .slide-right-leave-to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-
-  /* Slide Up */
-
-  .slide-up-enter-active, .slide-up-leave-active {
-    transition: transform .20s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-   }
-
-  .slide-up-enter {
-    transform: translateY(100%);
-    opacity: 1;
-  }
-
-  .slide-up-leave-to {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-
-  /* Slide Down */
-
-  .slide-down-enter-active, .slide-down-leave-active {
-    transition: transform .20s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-
-  .slide-down-enter {
-    transform: translateY(-100%);
-    opacity: 1;
-  }
-
-  .slide-down-leave-to {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-
-  /* Fade*/
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .15s;
-  }
-
-  .fade-enter-active {
-    transition-delay: 0.15s;
-  }
-
-  .fade-enter, .fade-leave-active {
-    opacity: 0;
-  }
 </style>
 
 <style lang="scss">

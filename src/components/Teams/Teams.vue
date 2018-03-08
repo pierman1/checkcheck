@@ -3,7 +3,7 @@
     <div class="title">Teams</div>
     <List :data="teams" :active="active" :route="route"></List>
     <!-- {{active}} -->
-    <!-- <Addteam></Addteam> -->
+    <Addteam></Addteam>
   </div>
 </template>
 

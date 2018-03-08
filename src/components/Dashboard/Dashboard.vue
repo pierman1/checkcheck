@@ -1,7 +1,8 @@
 <template lang="html">
   <div class="dashboard">
     <!-- <team></team> -->
-    <Header></Header>
+    <h2 class="title">Dashboard</h2>
+    <p>Still under construction...</p>
   </div>
 </template>
 
@@ -29,9 +30,15 @@ export default {
 <style scoped lang="scss">
   .dashboard {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     background-color: #fff;
+    padding: 40px;
+
+    .title {
+      font-weight: 700;
+      margin: 0 0 30px 0;
+    }
   }
 </style>

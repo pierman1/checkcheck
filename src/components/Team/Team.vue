@@ -29,6 +29,7 @@
 
 <script>
 import { db } from '../../firebase';
+import Card from '../Card/Card.vue'
 // const db = require('firebase')
 export default {
   name: 'Team',

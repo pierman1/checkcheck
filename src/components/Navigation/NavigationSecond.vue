@@ -21,18 +21,28 @@ export default {
 <style scoped lang="scss">
   .navigation-second {
     width: 100%;
-    display: flex;
+    // display: flex;
     flex-direction: row;
     padding: 10px;
     background-color: #fff;
     border-bottom: 1px solid #F0F0F0;
+    padding-top: 60px;
+    padding-left: 40px;
 
     .link {
-      margin-right: 10px;
-      font-size: 0.875em;
-      font-weight: 200;
+      margin-right: 20px;
+      font-size: 0.65em;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       text-decoration: none;
       color: #000;
+      opacity: 0.3;
+      transition: 250ms opacity;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 </style>
