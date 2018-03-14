@@ -34,21 +34,25 @@ export default {
     border-radius: 5px;
     margin-bottom: 4px;
     width: 100%;
+    opacity: 0.5;
     padding: 5px 20px;
+    text-decoration: none;
 
     &:first-of-type,
     &:hover,
     &:active {
       background-color: #D7EBFF;
+      opacity: 1;
     }
 
     &.playbook {
-      color: #B8E986;
+      color: #000;
 
       &:first-of-type,
       &:hover,
       &:active {
         background-color: #E5FFCB;
+        color: #B8E986;
       }
     }
   }

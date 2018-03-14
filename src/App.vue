@@ -84,7 +84,7 @@
 
 .fade-enter-active {
   transition-delay: .35s;
-  background-color: black;
+  // background-color: black;
 }
 
 .fade-enter, .fade-leave-active {

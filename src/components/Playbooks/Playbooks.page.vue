@@ -6,7 +6,7 @@
     <!-- {{user}} -->
 
     <div class="flex-container">
-      <Card v-for="playbook in playbooks" :data="playbook"></Card>
+      <Card v-for="playbook in playbooks" :data="playbook" :name="name"></Card>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      user: 'joe'
+      name: 'playbook'
     }
   },
   firestore() {

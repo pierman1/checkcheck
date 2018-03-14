@@ -96,7 +96,7 @@ export default new Router({
       }
     },
     {
-      path: '/playbooks/:playbook',
+      path: '/playbooks/:id',
       name: 'playbook',
       component: Playbooks,
       beforeEnter: (to, from, next) => {
@@ -107,6 +107,14 @@ export default new Router({
       path: '/checklists',
       name: 'checklists',
       component: ChecklistsPage,
+      beforeEnter: (to, from, next) => {
+        checkUser(to, from, next)
+      }
+    },
+    {
+      path: '/checklists/:id',
+      name: 'checklist',
+      component: Playbooks,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       }
