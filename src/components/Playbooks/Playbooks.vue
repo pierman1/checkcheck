@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="playbooks-page">
-    <h1>Playbooks page</h1>
+    <h1>Playbook page</h1>
   </div>
 </template>
 
@@ -10,9 +10,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .playbooks-page {
   width: 100%;
   padding: 20px;
+}
+
+.title {
+
 }
 </style>

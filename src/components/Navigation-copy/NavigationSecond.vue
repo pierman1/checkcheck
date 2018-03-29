@@ -21,11 +21,12 @@ export default {
 <style scoped lang="scss">
   .navigation-second {
     width: 100%;
+    // display: flex;
     flex-direction: row;
     padding: 10px;
     background-color: #fff;
     border-bottom: 1px solid #F0F0F0;
-    padding-top: 10px;
+    padding-top: 60px;
     padding-left: 40px;
 
     .link {

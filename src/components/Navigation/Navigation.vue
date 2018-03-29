@@ -1,35 +1,57 @@
 <template lang="html">
   <div class="navigation">
     <Teamswitcher></Teamswitcher>
-    <Teams :teams="teams" :route="'team'"></Teams>
-    <PlaybooksList :playbooks="playbooks" :route="'playbook'"></PlaybooksList>
+    <NavigationList :data='teams' :name="'teams'"
+    :visible="true"
+    @linkClicked="linkClicked"></NavigationList>
+    <NavigationList :data='playbooks' :name="'teams'"
+    :visible="false"
+    @linkClicked="linkClicked"></NavigationList>
   </div>
+
 </template>
 
 <script>
-import Teams from '../Teams/Teams.vue'
-import PlaybooksList from '../Playbooks/PlaybooksList.vue'
 import Teamswitcher from '../Teamswitcher/Teamswitcher.vue'
+import NavigationList from '../Navigation/NavigationList.vue'
 import { db } from '../../firebase'
+import firebase from 'firebase'
 
 export default {
   name: 'Navigation',
   data () {
     return {
       teams: [],
+      activeTeam: '',
       playbooks: [],
-      active: 1
+      user: {}
     }
   },
   components: {
-    Teams,
-    PlaybooksList,
-    Teamswitcher
+    Teamswitcher,
+    NavigationList
   },
   firestore() {
     return {
       teams: db.collection('teams'),
       playbooks: db.collection('playbooks')
+    }
+  },
+  methods: {
+    showPlaybooks () {
+      console.log('homo3');
+      console.log(this.activeTeam);
+
+      this.playbooks = db.collection('playbooks').doc(this.activeTeam)
+      console.log(this.playbooks);
+    },
+    linkClicked (item, name) {
+      // console.log('linkClicked', item);
+      // console.log(name);
+      if (name === 'teams') {
+        this.activeTeam = item['.key']
+        this.showPlaybooks()
+      }
     }
   }
 }

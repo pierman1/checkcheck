@@ -1,6 +1,6 @@
 <template lang="html">
   <ul class="list">
-    <ListItem v-for="item in data" :data="item" :active="active" :route="route"></ListItem>
+    <ListItem v-for="item in data" :data="item" :route="route" @showPlaybooks="showPlaybooks"></ListItem>
   </ul>
 </template>
 
@@ -8,9 +8,15 @@
 import ListItem from './ListItem'
 export default {
   name: 'List',
-  props: [ 'data', 'active', 'route' ],
+  props: [ 'data', 'route' ],
   components: {
     ListItem
+  },
+  methods: {
+    showPlaybooks (data) {
+      console.log('homo2')
+      this.$emit('showPlaybooks', data)
+    }
   }
 }
 </script>

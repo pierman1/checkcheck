@@ -5,8 +5,11 @@
         <h3 class="card-title">{{ data.name }}</h3>
       </div>
       <div class="card-body">
-        {{data}}
-        Contains 10 checklists
+        <ul>
+          <li>
+            Contains 10 checklists
+          </li>
+        </ul>
       </div>
     </router-link>
   </div>
@@ -21,12 +24,8 @@ export default {
 
 <style lang="scss">
   .card {
-    width: calc(33.333% - 5px);
     border: 1px solid #EAEAEA;
-    // border-right: 1px solid #EAEAEA;
-    // border-bottom: 1px solid #EAEAEA;
     border-radius: 3px;
-    // box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
     margin-bottom: 10px;
     overflow: hidden;
     height: 150px;
@@ -37,7 +36,7 @@ export default {
 
     .card-header {
       width: 100%;
-  font-size: 12px;
+      font-size: 12px;
       .card-title {
         padding: 10px;
         font-size: 12px;
@@ -45,14 +44,18 @@ export default {
         opacity: 0.5;
         margin: 0;
         color: #000;
-        // background-color: #3D8DF7;
         border-bottom: 1px solid #EAEAEA;
-
       }
     }
 
     .card-body {
       padding: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.75em;
     }
   }
 </style>

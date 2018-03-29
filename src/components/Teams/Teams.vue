@@ -1,8 +1,7 @@
 <template lang="html">
   <div class="teams">
     <div class="title">Teams</div>
-    <List :data="teams" :active="active" :route="route"></List>
-    <!-- {{active}} -->
+    <List :data="teams" :route="route"></List>
     <Addteam></Addteam>
   </div>
 </template>
@@ -12,7 +11,7 @@ import List from '../List/List.vue'
 import Addteam from './Addteam'
 export default {
   name: 'Teams',
-  props: [ 'teams', 'active', 'route' ],
+  props: [ 'teams', 'route' ],
   components: {
     List,
     Addteam

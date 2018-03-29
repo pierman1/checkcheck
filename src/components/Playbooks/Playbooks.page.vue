@@ -1,12 +1,16 @@
 <template lang="html">
   <div class="playbooks-page">
-    <h2 class="title">Playbooks page</h2>
-
-    <!-- {{playbooks}} -->
-    <!-- {{user}} -->
-
     <div class="flex-container">
-      <Card v-for="playbook in playbooks" :data="playbook" :name="name"></Card>
+      <div class="col">
+        <h2 class="title">Playbooks page</h2>
+
+        <div class="playbooks-container">
+          <Card v-for="playbook in playbooks" :data="playbook" :name="name"></Card>
+        </div>
+      </div>
+      <div class="col">
+        <AddPlaybook></AddPlaybook>
+      </div>
     </div>
   </div>
 </template>
@@ -14,10 +18,12 @@
 <script>
 import {db} from '../../firebase'
 import Card from '../Card/Card.vue'
+import AddPlaybook from './AddPlaybook'
 export default {
   name: 'PlaybooksPage',
   components: {
-    Card
+    Card,
+    AddPlaybook
   },
   data() {
     return {
@@ -62,18 +68,34 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #fff;
-    padding: 40px;
 
     .title {
       font-weight: 700;
-      margin: 0 0 30px 0;
+      margin: 0;
+      margin-bottom: 20px;
     }
 
     .flex-container {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      flex-wrap: wrap;
+      height: 100%;
+
+      .col {
+        width: 70%;
+        padding: 40px;
+        height: 100%;
+
+        &:nth-child(2) {
+          width: 30%;
+          border-left: 1px solid #F0F0F0;
+        }
+      }
+    }
+
+    .playbooks-container {
+      display: flex;
+      flex-direction: column;
     }
   }
 </style>

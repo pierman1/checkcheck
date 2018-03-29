@@ -3,7 +3,7 @@
     <div class="title">Playbooks</div>
     <!-- {{Playbooks}} -->
     <!-- {{route}} -->
-    <List :data="Playbooks" :route="route"></List>
+    <List :data="Playbooks" :route="route" @showPlaybooks="showPlaybooks"></List>
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   props: [ 'Playbooks', 'route' ],
   components: {
     List
+  },
+  methods: {
+    showPlaybooks () {
+      console.log('homo3333');
+    }
   }
 }
 </script>
