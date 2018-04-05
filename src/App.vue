@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Navigation v-show="user"></Navigation>
+    <!-- <Navigation v-show="user"></Navigation> -->
     <div class="flex-container">
       <NavigationSecond v-show="user"></NavigationSecond>
       <transition name="fade">
@@ -58,6 +58,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    background-color: #F4F8F9;
   }
 
   #app {

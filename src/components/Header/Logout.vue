@@ -19,5 +19,16 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="scss">
+  .nav {
+    i {
+      color: #000;
+      opacity: .4;
+      transition: 250ms;
+
+      &:hover {
+        opacity: .7;
+      }
+    }
+  }
 </style>
