@@ -42,7 +42,7 @@
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Proxima Nova', sans-serif;
   }
 
   * {
@@ -61,7 +61,6 @@
   }
 
   #app {
-    // background-color: #F4F4F4;
     background-color: #fff;
     min-height: 100vh;
     display: flex;
@@ -69,7 +68,8 @@
 
     .header {
       width: 80px;
-      background-color: #3D8DF7;
+      background-color: #fff;
+      border-right: 1px solid #cecece;
     }
   }
 

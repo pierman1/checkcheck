@@ -8,20 +8,21 @@
         </div>
       </div>
       <div class="col">
-
+        <AddChecklist></AddChecklist>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import { db } from '../../firebase'
 import Card from '../Card/Card'
+import AddChecklist from './AddChecklist'
 export default {
   name: 'ChecklistsPage',
   components: {
-    Card
+    Card,
+    AddChecklist
   },
   data() {
     return {

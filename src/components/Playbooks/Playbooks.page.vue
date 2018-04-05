@@ -19,6 +19,7 @@
 import {db} from '../../firebase'
 import Card from '../Card/Card.vue'
 import AddPlaybook from './AddPlaybook'
+
 export default {
   name: 'PlaybooksPage',
   components: {

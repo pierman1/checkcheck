@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="add-playbook">
-    Add playbook
-    <input v-model="newPlaybook" @change="addPlaybook">
+    Add checklist
+    <input v-model="newChecklist" @change="addChecklist">
   </div>
 </template>
 
@@ -10,10 +10,10 @@ import { db } from '../../firebase'
 import firebase from 'firebase'
 
 export default {
-  name: 'AddPlaybook',
+  name: 'AddChecklist',
   data () {
     return {
-      newPlaybook: '',
+      newChecklist: '',
       createdBy: {},
       teams:[],
       user: ''
@@ -21,25 +21,25 @@ export default {
   },
   firestore() {
     return {
-      playbooks: db.collection('playbooks')
+      checklists: db.collection('checklists')
     }
   },
   methods: {
-    addPlaybook () {
-      this.$firestore.playbooks.add(
+    addChecklist () {
+      this.$firestore.checklists.add(
         {
-          name: this.newPlaybook,
+          name: this.newChecklist,
           createdBy: {
             name: this.user.displayName,
             uid: this.user.uid
           },
-          users: [
+          users:[
             this.user.uid
           ],
           timestamp: new Date()
         }
       );
-      this.newPlaybook = '';
+      this.newChecklist = '';
     }
   },
   created () {
