@@ -1,23 +1,20 @@
 <template lang="html">
-  <!-- <li class=m"> -->
     <router-link class="list-item" :class="route" v-on:click.native="showPlaybooks(data['.key'])" :to="{ name: route, params: {id: data['.key']} }">
       {{data.name}}
-      <!-- {{route}} -->
     </router-link>
-  <!-- </li> -->
 </template>
 
 <script>
 import Link from '../Link/Link'
 export default {
   name: 'ListItem',
-  props: [ 'data', 'active', 'route', 'color' ],
+  props: [ 'data', 'route', 'color' ],
   component:{
     Link
   },
   methods: {
     showPlaybooks(data) {
-      console.log('showProjects', data);
+      console.log('homo');
       this.$emit('showPlaybooks', data)
     }
   }
@@ -34,21 +31,25 @@ export default {
     border-radius: 5px;
     margin-bottom: 4px;
     width: 100%;
+    opacity: 0.5;
     padding: 5px 20px;
+    text-decoration: none;
 
     &:first-of-type,
     &:hover,
     &:active {
       background-color: #D7EBFF;
+      opacity: 1;
     }
 
     &.playbook {
-      color: #B8E986;
+      color: #000;
 
       &:first-of-type,
       &:hover,
       &:active {
         background-color: #E5FFCB;
+        color: #B8E986;
       }
     }
   }

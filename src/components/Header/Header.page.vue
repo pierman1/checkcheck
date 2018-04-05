@@ -70,6 +70,11 @@ export default {
     }
   }
 
+  .bottom {
+    position: fixed;
+    bottom: 20px;
+  }
+
   button {
     background-color: transparent;
     border: 0;

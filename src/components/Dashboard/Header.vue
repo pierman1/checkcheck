@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="page-header">
-    <h2>Dashboard</h2>
+    <h2 class="title">Dashboard</h2>
   </div>
 </template>
 
@@ -17,8 +17,13 @@ export default {
 
 <style scoped lang="scss">
   .page-header {
-    padding: 0 20px;
+    margin: 0;
     width: 100%;
     background-color: #fff;
+
+    .title {
+      font-weight: 700;
+      margin: 0;
+    }
   }
 </style>

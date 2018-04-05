@@ -17,6 +17,6 @@ export default {
     background-color: gray;
     padding-top: 9px;
     text-align: center;
-    opacity: 0;
+    // opacity: 0;
   }
 </style>
