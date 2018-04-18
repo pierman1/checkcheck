@@ -19,6 +19,7 @@
 
 <script>
 import firebase from 'firebase'
+import {mapMutations} from 'vuex'
 export default {
   name: 'AuthSucces',
   data() {
@@ -37,6 +38,7 @@ export default {
   },
   created() {
     this.user = firebase.auth().currentUser
+    this.$store.commit('setUser', 'piet')
     if(this.user) {
       this.name = this.user.displayName
       this.email = this.user.email
@@ -47,7 +49,10 @@ export default {
   methods: {
     logOut() {
       firebase.auth().signOut()
-    }
+    },
+    ...mapMutations([
+      'setUser'
+    ])
   }
 }
 </script>

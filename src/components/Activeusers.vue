@@ -35,7 +35,13 @@ export default {
   },
   created() {
     this.user = firebase.auth().currentUser
-    console.log(this.user);
+    console.log(this.user.displayName);
+    console.log(this.user.displayName);
+    console.log(this.user.displayName);
+    console.log(this.user.displayName);
+    console.log(this.user.displayName);
+    console.log(this.user.displayName);
+    console.log(this.user.displayName);
     if(this.user) {
       this.name = this.user.displayName
       this.email = this.user.email

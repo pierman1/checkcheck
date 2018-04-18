@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Navigation v-show="user"></Navigation>
+    <!-- <Navigation v-show="user"></Navigation> -->
     <div class="flex-container">
       <NavigationSecond v-show="user"></NavigationSecond>
       <transition name="fade">
