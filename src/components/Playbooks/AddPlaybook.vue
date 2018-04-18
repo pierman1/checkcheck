@@ -1,7 +1,8 @@
 <template lang="html">
   <div class="add-playbook">
-    Add playbook
-    <input v-model="newPlaybook" @change="addPlaybook">
+    <h3>Add playbook</h3>
+    <input v-model="newPlaybook">
+    <button type="button" @click="addPlaybook">Add playbook</button>
   </div>
 </template>
 
@@ -50,6 +51,33 @@ export default {
 
 <style scoped lang="scss">
   .add-playbook {
+    h3 {
+      margin: 0;
+      margin-bottom: 10px;
+    }
 
+    button {
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      color: #fff;
+      background-color: #4DA1FF;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    input {
+      background: #FFFFFF;
+      border: 1px solid rgba(151,151,151,0.14);
+      border-radius: 5px;
+      width: 100%;
+      font-size: 13px;
+      padding: 4px 10px;
+
+      &:focus {
+        border: 1px solid #4DA1FF;
+        outline: 0;
+      }
+    }
   }
 </style>

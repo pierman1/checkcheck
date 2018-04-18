@@ -58,6 +58,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    background-color: #F4F8F9;
   }
 
   #app {

@@ -14,9 +14,11 @@ export default {
 
 <style scoped lang="scss">
   .logo {
-    background-color: gray;
-    padding-top: 9px;
     text-align: center;
-    // opacity: 0;
+
+    a {
+      color: #000;
+      font-size: 30px;
+    }
   }
 </style>
