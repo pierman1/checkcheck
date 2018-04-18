@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="card">
     <router-link class="link" :to="{ name: name, params: {id: data['.key']} }">
+      <!-- {{data}} -->
       <div class="card-header">
         <span class="status"></span>
         <span class="status-text">Doing</span>
@@ -9,8 +10,12 @@
         <h3 class="card-title">{{ data.name }}</h3>
         <ul>
           <li>
+            Created by: {{data.createdBy.name}}
+          </li>
+          <li>
             Contains 10 checklists
           </li>
+          <li>Users: {{data.users.length}}</li>
         </ul>
       </div>
     </router-link>

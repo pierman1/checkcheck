@@ -19,7 +19,8 @@
     "vue": "^2.5.11",
     "vue-firestore": "^0.2.6",
     "vue-router": "^3.0.1",
-    "vue-select": "^2.4.0"
+    "vue-select": "^2.4.0",
+    "vuex": "^3.0.1"
   },
   "browserslist": [
     "> 1%",

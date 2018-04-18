@@ -5,15 +5,12 @@
       <!-- <button type="button" name="button"><span class="glyphicon glyphicon-plus"></span> Add playbook</button> -->
     </div>
     <div class="flex-container">
+      <!-- {{safelyStoredNumber}} -->
       <div class="col">
-        <ChoosePlaybook :playbooks="playbooks" @showPlaybook="showPlaybook"></ChoosePlaybook>
-      </div>
-      <div class="col">
-        <h3 class="title-second">Phases</h3>
+        <h2 class="title">Playbooks page</h2>
+        {{getUser}}
         <div class="playbooks-container">
-
-          {{playbooktoShow}}
-          <Card v-for="playbook in playbooks" :data="playbook" :name="name"></Card>
+          <Card v-for="playbook in playbooks" :data="playbook" :name="'playbook.name'"></Card>
         </div>
       </div>
       <div class="col">
@@ -25,6 +22,7 @@
 
 <script>
 import {db} from '../../firebase'
+import { mapGetters, mapMutations } from 'vuex'
 import Card from '../Card/Card.vue'
 import AddPlaybook from './AddPlaybook'
 import ChoosePlaybook from './ChoosePlaybook'
@@ -39,12 +37,18 @@ export default {
   data() {
     return {
       name: 'playbook',
-      playbooktoShow: ''
+      playbooks: ''
     }
   },
-  firestore() {
+  computed: {
+    ...mapGetters([
+      // Mounts the "safelyStoredNumber" getter to the scope of your component.
+      'getUser'
+    ])
+  },
+  firestore () {
     return {
-      playbooks: db.collection('playbooks')
+      playbooks: db.collection('playbooks').where("createdBy.uid", '==', 'vH9eFuuAA0d0z7l6r9RjU1obenS2')
     }
   },
   methods: {
@@ -55,27 +59,28 @@ export default {
     }
   },
   created() {
-    console.log(this.playbooks);
-
-    var data = [{ id: 0, name: 'A' }, { id: 1, name: 'A' }, { id: 2, name: 'C' }, { id: 3, name: 'B' }, { id: 4, name: 'B' }];
-
-    var countList = data.reduce(function(p, c){
-      p[c.name] = (p[c.name] || 0) + 1;
-      return p;
-    }, {});
-
-    var result = data.filter(function(obj){
-      return countList[obj.name] > 1;
-    });
-
-    console.log(result)
-    // function filterPlaybooks(playbook) {
-    //   console.log(playbook);
-    //   return playbook.team === 'VfuAiu5BFMVM3I0eJgym'
-    // }
-    //
-    // var filtered = this.playbooks.filter(filterPlaybooks)
-    // console.log(filtered);
+  //   function getPlaybooks() {
+  //     var returnArr = []
+  //     db.collection('playbooks').where("createdBy.uid", '==', 'vH9eFuuAA0d0z7l6r9RjU1obenS2')
+  //       .get()
+  //       .then(function(querySnapshot) {
+  //         console.log(querySnapshot);
+  //
+  //         querySnapshot.forEach(function(doc) {
+  //
+  //           returnArr.push(doc.data())
+  //
+  //         })
+  //         return returnArr;
+  //       })
+  //       .catch(function(error) {
+  //         console.log(error);
+  //       })
+  //
+  //       return returnArr
+  //   }
+  //   this.playbooks = getPlaybooks()
+  // }
   }
 }
 </script>
@@ -158,10 +163,9 @@ export default {
     }
 
     .playbooks-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-gap: 10px;
     }
   }
 </style>
