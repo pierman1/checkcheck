@@ -73,6 +73,7 @@ export default {
         &:nth-child(2) {
           width: 30%;
           border-left: 1px solid #F0F0F0;
+          background-color: #fff;
         }
       }
     }

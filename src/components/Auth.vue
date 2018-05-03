@@ -29,13 +29,14 @@ export default {
     // border: 1px solid #cacaca;
     width: 90%;
     max-width: 350px;
-    min-height: 400px;
+    min-height: 230px;
     text-align: center;
     border-radius: 4px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
 
     p {
