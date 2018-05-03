@@ -3,7 +3,8 @@
     <div class="flex-container">
       <div class="col">
         <h2 class="title">Dashboard</h2>
-        <p>Still under construction...</p>
+        <p>Playbooks created by me:</p>
+        {{playbooks}}
       </div>
       <div class="col">
         <RecentActivity></RecentActivity>
@@ -13,16 +14,26 @@
 </template>
 
 <script>
-// import Header from './Header'
+import {db} from '../../firebase'
+import { mapGetters, mapMutations } from 'vuex'
 import RecentActivity from './RecentActivity'
-// import Teams from '../Team/Teams'
 import { bus } from '../../main'
+
 
 export default {
   name: 'Dashboard',
   components: {
-    // Header,
     RecentActivity
+  },
+  computed: {
+    ...mapGetters([
+      'getUser'
+    ])
+  },
+  firestore () {
+    return {
+      playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid)
+    }
   },
   created() {
     this.loadProfile()

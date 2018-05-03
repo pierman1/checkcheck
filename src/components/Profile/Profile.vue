@@ -40,6 +40,8 @@ export default {
   created() {
     this.user = firebase.auth().currentUser
     console.log(this.user);
+    console.log('Store', this.$store)
+    this.$store.commit('setUser')
     if(this.user) {
       this.name = this.user.displayName
       this.email = this.user.email

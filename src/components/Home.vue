@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   .home {
     display: flex;
     width: 70%;

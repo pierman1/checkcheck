@@ -210,14 +210,14 @@ $breakpoint-large: 60em; // 960px
   margin-left: auto;
   margin-right: auto;
 
-  @media only screen and (min-width: $breakpoint-small) {
-    width: 80%;
-  }
-
-  @media only screen and (min-width: $breakpoint-large) {
-    width: 100%;
-    max-width: 1440px;
-  }
+  // @media only screen and (min-width: $breakpoint-small) {
+  //   width: 80%;
+  // }
+  //
+  // @media only screen and (min-width: $breakpoint-large) {
+  //   width: 100%;
+  //   max-width: 1440px;
+  // }
 }
 
 .row {
