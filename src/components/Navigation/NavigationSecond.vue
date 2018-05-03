@@ -27,7 +27,7 @@ export default {
     border-bottom: 1px solid #F0F0F0;
     padding-top: 10px;
     padding-left: 40px;
-    height: 70px;
+    height: 45px;
 
     .link {
       margin-right: 20px;

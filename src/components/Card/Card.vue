@@ -1,7 +1,6 @@
 <template lang="html">
   <div class="card">
     <router-link class="link" :to="{ name: name, params: {id: data['.key']} }">
-      <!-- {{data}} -->
       <div class="card-header">
         <span class="status"></span>
         <span class="status-text">Doing</span>
@@ -36,6 +35,7 @@ export default {
     overflow: hidden;
     height: 150px;
     text-align: center;
+    margin-right: 10px;
     border: 2px solid #E9EFF4;
     outline: 3px solid transparent;
     transition: 250ms;

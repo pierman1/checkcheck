@@ -17,7 +17,7 @@ new Vue({
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
-        this.$router.push('/dashboard')
+        this.$router.push('/succes')
       } else {
         this.$router.push('/auth')
       }

@@ -2,15 +2,11 @@
   <div class="playbooks-page">
     <div class="playbooks-page-header">
       <h2 class="title">Playbooks</h2>
-      <!-- <button type="button" name="button"><span class="glyphicon glyphicon-plus"></span> Add playbook</button> -->
     </div>
     <div class="flex-container">
-      <!-- {{safelyStoredNumber}} -->
       <div class="col">
-        <h2 class="title">Playbooks page</h2>
-        {{getUser}}
         <div class="playbooks-container">
-          <Card v-for="playbook in playbooks" :data="playbook" :name="'playbook.name'"></Card>
+          <Card v-for="playbook in playbooks" :data="playbook" :name="name"></Card>
         </div>
       </div>
       <div class="col">
@@ -37,18 +33,21 @@ export default {
   data() {
     return {
       name: 'playbook',
-      playbooks: ''
+      playbooksList: ''
     }
   },
   computed: {
     ...mapGetters([
-      // Mounts the "safelyStoredNumber" getter to the scope of your component.
       'getUser'
     ])
   },
   firestore () {
+    var userId = this.getUser.uid
+    var filtered = db.collection('playbooks')
+    console.log(userId)
+    console.log('filtered', filtered)
     return {
-      playbooks: db.collection('playbooks').where("createdBy.uid", '==', 'vH9eFuuAA0d0z7l6r9RjU1obenS2')
+      playbooks: db.collection('playbooks')
     }
   },
   methods: {
@@ -58,7 +57,26 @@ export default {
       this.playbooktoShow = this.$firestore.playbooks.doc(key)
     }
   },
-  created() {
+  created () {
+
+    var user = this.getUser
+    console.log(user.playbooks)
+
+    // this.playbooksList = this.playbooks
+    // console.log(user, playbooks, this.playbooksList.length)
+    // var filteredPlaybooks = []
+
+
+    //
+    // playbooks.forEach(function (playbook) {
+    //   console.log(playbook)
+    // })
+    // = playbooks.filter(function(playbook) {
+    //   if (playbook['.key'] === 'tvhw7wCWHDZFSwJh1BLv') {
+    //     return playbook
+    //   }
+
+    // console.log(filteredPlaybooks);
   //   function getPlaybooks() {
   //     var returnArr = []
   //     db.collection('playbooks').where("createdBy.uid", '==', 'vH9eFuuAA0d0z7l6r9RjU1obenS2')
@@ -91,7 +109,7 @@ export default {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding: 17px 35px;
+    padding: 20px;
 
     .playbooks-page-header {
       width: 100%;
@@ -124,7 +142,7 @@ export default {
 
       .col {
         width: calc(20% - 10px);
-        padding: 40px;
+        padding: 20px;
         height: 90%;
         margin-right: 20px;
         background-color: #fff;
@@ -133,14 +151,10 @@ export default {
         overflow: scroll;
 
         &:nth-child(1) {
-          padding: 26px;
-        }
-
-        &:nth-child(2) {
           width: calc(60% - 10px);
         }
 
-        &:nth-child(3) {
+        &:nth-child(2) {
           width: calc(20% - 10px);
           border-left: 1px solid #F0F0F0;
           margin-right: 0;
@@ -163,9 +177,8 @@ export default {
     }
 
     .playbooks-container {
-      display: grid;
-      grid-template-columns: auto auto auto;
-      grid-gap: 10px;
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 </style>

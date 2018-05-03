@@ -14,7 +14,7 @@ import firebase from 'firebase'
 import { bus } from '../main'
 
 import Auth from '../components/Auth'
-import AuthSuccess from '../components/AuthSuccess'
+import AuthSucces from '../components/AuthSucces'
 
 Vue.use(Router)
 
@@ -37,12 +37,6 @@ const checkUser = function(to, from, next) {
   })
 }
 
-// const getProfile = function(to, from, next) {
-//   return {
-//     joe: 'joe'
-//   }
-// }
-
 export default new Router({
   routes: [
     {
@@ -56,9 +50,9 @@ export default new Router({
       component: Auth
     },
     {
-      path: '/success',
+      path: '/succes',
       name: 'Succes',
-      component: AuthSuccess,
+      component: AuthSucces,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       }
@@ -67,22 +61,6 @@ export default new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
-      beforeEnter: (to, from, next) => {
-        checkUser(to, from, next)
-      }
-    },
-    {
-      path: '/teams',
-      name: 'Teams',
-      beforeEnter: (to, from, next) => {
-        checkUser(to, from, next)
-      },
-      component: Teams
-    },
-    {
-      path: '/teams/:id',
-      name: 'team',
-      component: Team,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       }
