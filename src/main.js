@@ -4,8 +4,10 @@ import VueFirestore from 'vue-firestore'
 import router from './router'
 import firebase from 'firebase'
 import VueDraggable from 'vue-draggable'
+import VModal from 'vue-js-modal'
 
 Vue.use(VueDraggable)
+Vue.use(VModal)
 
 import { store } from './store.js'
 // turns off the 'You are running Vue in development mode.' msg

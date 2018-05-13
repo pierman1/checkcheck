@@ -2,7 +2,7 @@
   <div class="success">
     <div class="container">
       <h1>Signup succeeded</h1>
-      <button @click="logOut" name="button">Log out</button>
+      <button class="btn" @click="logOut" name="button">Log out</button>
       <hr>
       <img :src="photo" alt="">
 
@@ -85,12 +85,18 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../assets/global.scss';
   .success {
-    width: 90%;
+    width: 100%;
+    margin-top: 30px;
 
     .container {
-      background-color: #fff;
       margin-top: 30px;
+      background-color: #fff;
+    }
+
+    .btn {
+      @extend .btn-purple
     }
   }
 </style>

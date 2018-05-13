@@ -1,8 +1,10 @@
 <template lang="html">
-  <div class="add-checklist">
-    <h4 class="title">New checklist</h4>
-    <input v-model="newChecklist" @change="addChecklist">
-  </div>
+  <modal name="add-checklist">
+    <div class="container">
+      <h4 class="title">New checklist</h4>
+      <input v-model="newChecklist" @change="addChecklist">
+    </div>
+  </modal>
 </template>
 
 <script>

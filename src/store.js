@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
     all: {},
     user: {},
     playbooks: {},
-    checklists: {}
+    checklists: {},
+    sidebarStatus: false
   },
   mutations: {
     setUser(state, user) {
@@ -35,6 +36,7 @@ export const store = new Vuex.Store({
     }
   },
   getters: {
-    getUser: state => state.user
+    getUser: state => state.user,
+    getSidebarStatus: state => state.sidebarStatus
   },
 });

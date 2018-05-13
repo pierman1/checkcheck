@@ -95,7 +95,7 @@ export default {
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    opacity: 0.5;
+    position: fixed;
     a {
       color: #fff;
       text-decoration: none;

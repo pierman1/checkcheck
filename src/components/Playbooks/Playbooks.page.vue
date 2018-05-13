@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="playbooks-page">
+  <!-- <div class="playbooks-page">
     <div class="playbooks-page-header">
       <h2 class="title">Playbooks</h2>
     </div>
@@ -11,6 +11,22 @@
       </div>
       <div class="col">
         <AddPlaybook></AddPlaybook>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="playbooks-page">
+    <div class="flex-container">
+      <div class="col">
+        <div class="inner">
+          <div class="inner-header">
+            <h2 class="title">Playbooks</h2>
+            <button type="button" @click="$modal.show('add-playbook')">New playbook</button>
+          </div>
+          <div class="playbooks-container">
+            <Card v-for="playbook in playbooks" :data="playbook" :name="name"></Card>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -104,81 +120,71 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .playbooks-page {
+@import '../../assets/global.scss';
+
+.playbooks-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-top: 40px;
+
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+  }
+
+  .flex-container {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
     height: 100%;
-    padding: 20px;
 
-    .playbooks-page-header {
+    .col {
       width: 100%;
-    }
-
-    .title {
-      font-weight: 700;
-      margin: 0;
-      margin-bottom: 20px;
-      font-size: 38px;
-      font-weight: 500;
-      color: #233539;
-      letter-spacing: -1.09px;
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    .title-second {
-      font-size: 11px;
-      text-transform: uppercase;
-      margin: 0;
-      margin-bottom: 20px;
-    }
-
-    .flex-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
       height: 100%;
+      padding: 20px;
 
-      .col {
-        width: calc(20% - 10px);
-        padding: 20px;
-        height: 90%;
-        margin-right: 20px;
-        background-color: #fff;
-        border-radius: 6px;
-        box-shadow: 0 2px 9px 0 rgba(0,0,0,0.03);
-        overflow: scroll;
+      .inner {
+        width: 100%;
 
-        &:nth-child(1) {
-          width: calc(60% - 10px);
-        }
-
-        &:nth-child(2) {
-          width: calc(20% - 10px);
-          border-left: 1px solid #F0F0F0;
-          margin-right: 0;
-          height: 180px;
+        .inner-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          width: 100%;
+          padding: 15px 20px;
+          border-bottom: 1px solid #F0F0F0;
+          margin-bottom: 10px;
+          position: relative;
+          background: #fff;
         }
       }
-    }
 
-    button {
-      display: inline-block;
-      background-color: #4DA1FF;
-      max-width: 140px;
-      padding: 4px 10px;
-      color: #fff;
-      border-radius: 2px;
-      font-weight: 100;
-      span {
-        color: #fff;
+      &:nth-child(2) {
+        width: 30%;
+        padding-left: 0;
+        // border-left: 1px solid #F0F0F0;
       }
-    }
-
-    .playbooks-container {
-      display: flex;
-      flex-wrap: wrap;
     }
   }
+
+  button {
+    @extend .btn-purple
+  }
+
+  .playbooks-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #fff;
+    padding: 20px;
+  }
+}
 </style>

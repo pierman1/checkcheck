@@ -133,12 +133,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '../../assets/global.scss';
 .playbooks-page {
   width: calc(100% - 20px);
   padding: 20px;
   display: flex;
   justify-content: space-between;
   margin-right: 40px;
+  margin-top: 40px;
 }
 
 .flex-container {
@@ -196,9 +198,11 @@ select {
 .btn {
   width: 100%;
   padding: 13px 10px;
-  background-color: #3b99fc;
+  background-color: $purple;
   color: white;
   border-radius: 2px;
   margin-top: 20px;
+
+  @extend .btn-purple
 }
 </style>

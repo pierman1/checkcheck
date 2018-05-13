@@ -29,6 +29,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../assets/global.scss';
+
   .card {
     border-radius: 3px;
     margin-bottom: 10px;
@@ -102,7 +104,7 @@ export default {
 
     &:hover,
     &.active {
-      border: 2px solid #4DA1FF;
+      border: 2px solid $purple;
       outline: 3px solid #F2F8FF;
     }
   }

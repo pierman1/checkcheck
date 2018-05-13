@@ -1,0 +1,59 @@
+// Colors
+$light-purple: #D7DBEB;
+$red: #e3294d;
+$purple: #655EFE;
+$pink: #FC91CE;
+
+.btn {
+  &:focus {
+    outline: 0;
+  }
+}
+
+.btn-purple {
+  background-color: $purple;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 12px;
+  width: 120px;
+  border-radius: 2px;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-purple-border {
+  background-color: #fff;
+  border: 1px solid $purple;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+  border-radius: 2px;
+  color: $purple;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s background;
+
+  &:hover {
+    background-color: $purple;
+  }
+}
+
+.btn-header {
+  background-color: #fff;
+  border: 1px solid $purple;
+  padding: 4px 10px;
+  text-align: center;
+  font-size: 8px;
+  border-radius: 2px;
+  color: $purple;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s background;
+
+  &:hover {
+    background-color: $purple;
+    color: #fff;
+  }
+}

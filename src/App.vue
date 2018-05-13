@@ -2,12 +2,14 @@
   <div id="app">
     <Header></Header>
     <!-- <Navigation v-show="user"></Navigation> -->
-    <div class="flex-container">
-      <NavigationSecond v-show="user"></NavigationSecond>
+    <NavigationSecond v-show="user"></NavigationSecond>
+    <div class="main">
       <transition name="fade">
         <router-view :key="$route.path"></router-view>
       </transition>
     </div>
+    <Modals/>
+    <Sidebar/>
   </div>
 
 </template>
@@ -17,6 +19,8 @@
   import Navigation from './components/Navigation/Navigation.vue'
   import NavigationSecond from './components/Navigation/NavigationSecond.vue'
   import firebase from 'firebase'
+  import Modals from './components/modals'
+  import Sidebar from './components/sidebar/Sidebar.vue'
 
   export default {
     name: 'app',
@@ -28,17 +32,20 @@
     components: {
       Header,
       Navigation,
-      NavigationSecond
+      NavigationSecond,
+      Modals,
+      Sidebar
     },
     updated() {
       this.user = firebase.auth().currentUser
       console.log(firebase.auth().currentUser);
-      console.log('joe');
+      // console.log('joe');
     }
   }
 </script>
 
 <style lang="scss">
+
   body {
     margin: 0;
     padding: 0;
@@ -54,11 +61,11 @@
     line-height: 1.5em;
   }
 
-  .flex-container {
+  .main {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    background-color: #F4F8F9;
+    width: calc(100% - 80px);
+    background-color: #D7DBEB;
   }
 
   #app {
