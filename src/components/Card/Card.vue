@@ -2,22 +2,29 @@
   <div class="card">
     <router-link class="link" :to="{ name: name, params: {id: data['.key']} }">
       <div class="card-header">
-        <span class="status"></span>
+        <h3 class="card-title">{{ data.name }}</h3>
         <span class="status-text">Doing</span>
       </div>
+    </router-link>
       <div class="card-body">
-        <h3 class="card-title">{{ data.name }}</h3>
         <ul>
           <li>
-            Created by: {{data.createdBy.name}}
+            Created by:
+            <span>{{data.createdBy.name}}</span>
           </li>
           <li>
-            Contains 10 checklists
+            Contains <span>10</span> checklists
           </li>
-          <li>Users: {{data.users.length}}</li>
+          <li>
+            Users:
+            <span>{{data.users.length}}</span>
+          </li>
         </ul>
       </div>
-    </router-link>
+      <div class="card-footer">
+        <button type="button" name="button" @click="$modal.show('add-users-to-playbook')">Add users</button>
+        <router-link :to="{ name: '', params: {} }">Details</router-link>
+      </div>
   </div>
 </template>
 
@@ -32,17 +39,14 @@ export default {
 @import '../../assets/global.scss';
 
   .card {
-    border-radius: 3px;
     margin-bottom: 10px;
     overflow: hidden;
-    height: 150px;
-    text-align: center;
     margin-right: 10px;
-    border: 2px solid #E9EFF4;
     outline: 3px solid transparent;
     transition: 250ms;
-    width: calc(33% - 10px);
+    width: calc(20% - 10px);
     position: relative;
+    background-color: #fff;
 
     .link {
       text-decoration: none;
@@ -60,8 +64,14 @@ export default {
 
     .status-text {
       display: inline-block;
-      color: #323C47;
-      opacity: .5;
+      color: $purple;
+      opacity: .8;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 3px 6px;
+      text-transform: uppercase;
+      font-size: 8px;
+      width: 40px;
     }
 
     .card-header {
@@ -69,25 +79,39 @@ export default {
       font-size: 12px;
       padding: 14px;
       text-align: left;
+      background-color: $purple;
+      display: flex;
+      justify-content: space-between;
       .card-title {
-        padding: 10px;
-        font-size: 12px;
+        font-size: 16px;
         font-weight: 500;
         margin: 0;
-        color: #000;
+        color: #fff;
         font-family: 'ProximaNova-Regular';
-        font-size: 16px;
-        color: #323C47;
+        // font-size: 16px;
+        font-weight: 100;
         letter-spacing: 0.11px;
       }
     }
 
     .card-body {
       padding: 10px;
-      position: absolute;
       top: 50%;
-      transform: translateY(-50%);
       width: 100%;
+    }
+
+    .card-footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 20px 0;
+      color: #cecece;
+      a, button {
+        font-size: 12px;
+        text-decoration: none;
+        color: #000;
+        opacity: .8;
+      }
     }
 
     ul {
@@ -97,15 +121,20 @@ export default {
         opacity: 0.5;
         font-family: ProximaNova-Regular;
         font-size: 10px;
+        font-weight: 800;
         color: #323C47;
         letter-spacing: 0.11px;
+
+        span {
+          color: $light-blue;
+        }
       }
     }
 
     &:hover,
     &.active {
-      border: 2px solid $purple;
-      outline: 3px solid #F2F8FF;
+      // border: 2px solid $purple;
+      // outline: 3px solid #F2F8FF;
     }
   }
 </style>

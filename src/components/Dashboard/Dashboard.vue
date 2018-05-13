@@ -32,6 +32,17 @@
               </div>
             </div>
           </div>
+          <div class="stats-container">
+            <div class="activity-container">
+              <div class="inner">
+                <h3 class="title">Recent activity</h3>
+                <div class="activity-cell" v-for="item in activity">
+                  <img :src="item.photoUrl" alt="">
+                  {{item.name}}
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="dashboard-container">
             <h2 class="title">Activity</h2>
             <chart :data="chartData"   :width="400" :height="100"></chart>
@@ -90,7 +101,8 @@ export default {
   },
   firestore () {
     return {
-      playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid)
+      // playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid),
+      activity: db.collection('activity')
     }
   },
   created() {
@@ -201,10 +213,15 @@ export default {
     margin-bottom: 10px;
     position: relative;
 
-    .stat-container {
+    .stat-container,
+    .activity-container {
       background-color: #fff;
       width: calc(20% - 10px);
       font-size: 12px;
+
+      .inner {
+        padding: 20px;
+      }
 
       a {
         color: #000;
@@ -224,6 +241,15 @@ export default {
         width: 40%;
       }
     }
+
+    .activity-cell {
+      margin-top: 10px;
+      img {
+        width: 24px;
+        border-radius: 50%;
+        border: 1px solid $purple;
+      }
+    }
   }
 
   .search {
@@ -234,6 +260,7 @@ export default {
       font-size: 16px;
       height: 100%;
       padding-left: 20px;
+      border: 0;
 
       &:focus {
         outline: 0;

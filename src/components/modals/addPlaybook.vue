@@ -20,8 +20,7 @@ export default {
     return {
       newPlaybook: '',
       createdBy: {},
-      teams:[],
-      user: ''
+      teams:[]
     }
   },
   computed: {
@@ -32,25 +31,37 @@ export default {
   firestore() {
     return {
       playbooks: db.collection('playbooks'),
-      user: db.collection('users').where('uid', '==', 'vH9eFuuAA0d0z7l6r9RjU1obenS2')
+      activity: db.collection('activity')
     }
   },
   methods: {
     addPlaybook () {
 
+      var time = new Date()
+
       this.$firestore.playbooks.add(
         {
           name: this.newPlaybook,
           createdBy: {
-            name: this.user.displayName,
-            uid: this.user.uid
+            name: this.getUser.displayName,
+            uid: this.getUser.uid
           },
           users: [
-            this.user.uid
+            this.getUser.uid
           ],
-          timestamp: new Date()
+          timestamp: time
         }
       );
+
+
+
+      var activityName = 'Created new Playbook: ' + this.newPlaybook
+
+      this.$firestore.activity.add({
+        name: activityName,
+        photoUrl: this.getUser.photoURL,
+        timestamp: time
+      })
       this.newPlaybook = '';
     }
   },

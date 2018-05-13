@@ -8,7 +8,7 @@
         </p>
         <router-link to="teams">Boards</router-link>
       </div>
-      <div class="col">
+      <div class="">
 
       </div>
     </div>
@@ -16,10 +16,13 @@
 </template>
 
 <script>
-
+// import backgroundImage from '../assets/background-hero.png'
 export default {
   name: 'Home',
-  components: {
+  data () {
+    return {
+      // image: backgroundImage
+    }
   }
 }
 </script>
@@ -53,6 +56,9 @@ export default {
     width: 50%;
     &:nth-child(2) {
       background-color: $purple;
+      background-size: 80%;
+      background-repeat: no-repeat;
+      background-position: 20% 140%;
     }
   }
 
