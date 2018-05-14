@@ -10,6 +10,7 @@
 <script>
 import { db } from '../../firebase'
 import firebase from 'firebase'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'AddChecklist',
@@ -21,26 +22,43 @@ export default {
       user: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'getUser'
+    ])
+  },
   firestore() {
     return {
-      checklists: db.collection('checklists')
+      checklists: db.collection('checklists'),
+      activity: db.collection('activity')
     }
   },
   methods: {
     addChecklist () {
+      var time = new Date()
+
       this.$firestore.checklists.add(
         {
           name: this.newChecklist,
           createdBy: {
-            name: this.user.displayName,
-            uid: this.user.uid
+            name: this.getUser.displayName,
+            uid: this.getUser.uid
           },
           users:[
-            this.user.uid
+            this.getUser.uid
           ],
-          timestamp: new Date()
+          timestamp: time
         }
       );
+
+      var activityName = 'Created new Checklist: ' + this.newChecklist
+
+      this.$firestore.activity.add({
+        name: activityName,
+        photoUrl: this.getUser.photoURL,
+        timestamp: time
+      })
+
       this.newChecklist = '';
     }
   },
