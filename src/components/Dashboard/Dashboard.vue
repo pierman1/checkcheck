@@ -33,19 +33,12 @@
             </div>
           </div>
           <div class="stats-container">
-            <div class="activity-container">
-              <div class="inner">
-                <h3 class="title">Recent activity</h3>
-                <div class="activity-cell" v-for="item in activity">
-                  <img :src="item.photoUrl" alt="">
-                  {{item.name}}
-                </div>
-              </div>
-            </div>
+            <RecentActivity :activity="latestActivities"/>
+            <YourActivity/>
           </div>
           <div class="dashboard-container">
             <h2 class="title">Activity</h2>
-            <chart :data="chartData"   :width="400" :height="100"></chart>
+            <chart :data="chartData" :width="400" :height="100"></chart>
           </div>
         </div>
       </div>
@@ -56,14 +49,16 @@
 <script>
 import {db} from '../../firebase'
 import { mapGetters, mapMutations } from 'vuex'
-import RecentActivity from './RecentActivity'
 import { bus } from '../../main'
+import RecentActivity from './RecentActivity'
+import YourActivity from './YourActivity'
 import chart from './chart.js'
 
 export default {
   name: 'Dashboard',
   components: {
     RecentActivity,
+    YourActivity,
     chart
   },
   data () {
@@ -97,12 +92,15 @@ export default {
   computed: {
     ...mapGetters([
       'getUser'
-    ])
+    ]),
+    latestActivities () {
+      return this.allActivities.slice(0, 3)
+    }
   },
   firestore () {
     return {
       // playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid),
-      activity: db.collection('activity')
+      allActivities: db.collection('activity').orderBy('timestamp').limit(4)
     }
   },
   created() {

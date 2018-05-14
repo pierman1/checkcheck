@@ -1,3 +1,4 @@
+
 // Colors
 $light-purple: #D7DBEB;
 $red: #e3294d;
@@ -58,3 +59,6 @@ $light-blue: #59cbff;
     color: #fff;
   }
 }
+
+@import './transitions.scss';
+@import './modal.scss';

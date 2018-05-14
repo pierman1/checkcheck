@@ -55,12 +55,17 @@ export default {
 
 
 
-      var activityName = 'Created new Playbook: ' + this.newPlaybook
+      var activityName = 'New Playbook: ' + this.newPlaybook
 
       this.$firestore.activity.add({
+        itemName: this.newPlaybook,
         name: activityName,
         photoUrl: this.getUser.photoURL,
-        timestamp: time
+        timestamp: time,
+        createdBy: {
+          name: this.getUser.displayName,
+          uid: this.getUser.uid
+        }
       })
       this.newPlaybook = '';
     }

@@ -1,5 +1,5 @@
 <template lang="html">
-  <modal name="settings" class="settings">
+  <modal name="settings" class="settings modal">
     <div class="modal-container">
       <div class="close">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.9 21.9">
