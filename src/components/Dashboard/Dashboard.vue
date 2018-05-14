@@ -100,7 +100,7 @@ export default {
   firestore () {
     return {
       // playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid),
-      allActivities: db.collection('activity').orderBy('timestamp').limit(4)
+      allActivities: db.collection('activity').orderBy('timestamp', 'desc').limit(4)
     }
   },
   created() {

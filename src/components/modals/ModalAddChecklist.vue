@@ -1,5 +1,5 @@
 <template lang="html">
-  <modal name="add-checklist" class="modal">
+  <modal name="ModalAddChecklist" class="modal">
     <div class="modal-container">
       <div class="close">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.9 21.9">
@@ -11,7 +11,7 @@
     </div>
     <div class="modal-container">
       <input v-model="newChecklist" @change="addChecklist">
-      <button class="btn btn-purple btn-bottom" name="button">Add Checklist</button>
+      <button class="btn btn-purple btn-bottom" @click="openModal()" name="button">Add Checklist</button>
     </div>
   </modal>
 </template>
@@ -22,7 +22,7 @@ import firebase from 'firebase'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'AddChecklist',
+  name: 'ModalAddChecklist',
   data () {
     return {
       newChecklist: '',
@@ -65,10 +65,18 @@ export default {
       this.$firestore.activity.add({
         name: activityName,
         photoUrl: this.getUser.photoURL,
-        timestamp: time
+        timestamp: time,
+        createdBy: {
+          name: this.getUser.displayName,
+          uid: this.getUser.uid
+        }
       })
 
       this.newChecklist = '';
+    },
+    openModal () {
+      console.log('open-modal');
+      this.$modal('ModalAddChecklist')
     }
   },
   created () {

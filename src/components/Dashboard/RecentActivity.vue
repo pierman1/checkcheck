@@ -2,8 +2,8 @@
   <div class="activity-container">
     <div class="inner">
       <h3 class="title">Recent activity</h3>
-      <transition-group name="slide-fade">
-        <div class="activity-cell" v-for="(item, index) in activity" v-if="activity.length > 0">
+      <transition-group name="card">
+        <div class="activity-cell" v-for="(item, index) in activity" :key="index">
           <div class="activity-cell-header" :class="{'hideIt': index===activity.length-1}">
             <img :src="item.photoUrl" alt="">
             <div class="name">

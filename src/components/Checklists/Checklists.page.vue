@@ -5,7 +5,10 @@
         <div class="inner">
           <div class="inner-header">
             <h2 class="title">All checklists</h2>
-            <button type="button" @click="$modal.show('add-checklist')">New checklist</button>
+            <div class="">
+
+            </div>
+            <button type="button" @click="$modal.show('addChecklist')">New checklist</button>
           </div>
           <div class="checklists-container">
             <Card v-for="checklist in checklists" :data="checklist" :name="name"></Card>
@@ -22,12 +25,12 @@
 <script>
 import { db } from '../../firebase'
 import Card from '../Card/Card'
-import AddChecklist from './AddChecklist'
+// import AddChecklist from './AddChecklist'
 export default {
   name: 'ChecklistsPage',
   components: {
-    Card,
-    AddChecklist
+    Card
+    // AddChecklist
   },
   data() {
     return {
