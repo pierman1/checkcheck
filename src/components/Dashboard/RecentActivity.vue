@@ -3,7 +3,7 @@
     <div class="inner">
       <h3 class="title">Recent activity</h3>
       <transition-group name="card">
-        <div class="activity-cell" v-for="(item, index) in activity" :key="index">
+        <div class="activity-cell" v-for="(item, index) in activity" :key="index" v-if="item.animateOut">
           <div class="activity-cell-header" :class="{'hideIt': index===activity.length-1}">
             <img :src="item.photoUrl" alt="">
             <div class="name">
@@ -44,6 +44,16 @@ export default {
         cellAlign: 'center',
         autoPlay: true
       }
+    }
+  },
+  watch: {
+    activity: function () {
+      console.log('log');
+      this.activity.forEach((item) => {
+        item.animateOut = true
+      })
+
+      this.activity[2].animateOut = false
     }
   }
 }

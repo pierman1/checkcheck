@@ -1,10 +1,18 @@
 <template lang="html">
-  <modal name="add-playbook">
-    <div class="container">
-      <h3>Add playbook</h3>
-      <input v-model="newPlaybook">
-      <button type="button" @click="addPlaybook">Add playbook</button>
+  <modal name="add-playbook" class="add-playbook">
+    <div class="modal-container">
+      <div class="close" @click="closeModal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.9 21.9">
+          <path d="M14.1 11.3c-.2-.2-.2-.5 0-.7l7.5-7.5c.2-.2.3-.5.3-.7s-.1-.5-.3-.7L20.2.3c-.2-.2-.5-.3-.7-.3-.3 0-.5.1-.7.3l-7.5 7.5c-.2.2-.5.2-.7 0L3.1.3C2.9.1 2.6 0 2.4 0s-.5.1-.7.3L.3 1.7c-.2.2-.3.5-.3.7s.1.5.3.7l7.5 7.5c.2.2.2.5 0 .7L.3 18.8c-.2.2-.3.5-.3.7s.1.5.3.7l1.4 1.4c.2.2.5.3.7.3s.5-.1.7-.3l7.5-7.5c.2-.2.5-.2.7 0l7.5 7.5c.2.2.5.3.7.3s.5-.1.7-.3l1.4-1.4c.2-.2.3-.5.3-.7s-.1-.5-.3-.7l-7.5-7.5z"/>
+        </svg>
+      </div>
+      <h2 class="title">Add playbook</h2>
+      <div class="select-user">
+        <!-- <button type="button" @click="addPlaybook">Add playbook</button> -->
+      </div>
     </div>
+    <input v-model="newPlaybook">
+    <button class="btn btn-purple btn-bottom" @click="addPlaybook" name="button">Add playbook</button>
   </modal>
 </template>
 
@@ -35,6 +43,9 @@ export default {
     }
   },
   methods: {
+    closeModal () {
+      this.$modal.hide('add-playbook')
+    },
     addPlaybook () {
 
       var time = new Date()
@@ -53,8 +64,6 @@ export default {
         }
       );
 
-
-
       var activityName = 'New Playbook: ' + this.newPlaybook
 
       this.$firestore.activity.add({
@@ -67,6 +76,14 @@ export default {
           uid: this.getUser.uid
         }
       })
+
+      this.$notify({
+        group: 'foo',
+        title: 'Checkbot message',
+        duration: 60000,
+        text: this.getUser.displayName + ' created playbook ' + this.newPlaybook
+      });
+
       this.newPlaybook = '';
     }
   },
@@ -77,34 +94,62 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .add-playbook {
-    h3 {
-      margin: 0;
-      margin-bottom: 10px;
+@import '../../assets/global.scss';
+.add-playbook {
+
+  h2 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  p {
+    font-size: 12px;
+    color: #fff;
+  }
+
+  .select-user {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    select, p {
+      width: 50%;
+      font-size: 14px;
+    }
+  }
+
+  .administrator-check {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .modal-container {
+    padding: 20px;
+    color: lighten($purple, 100%);
+
+    &:first-of-type {
+      background-color: $purple;
     }
 
-    button {
-      font-size: 13px;
-      padding: 4px 10px;
-      border-radius: 2px;
-      color: #fff;
-      background-color: #4DA1FF;
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    input {
-      background: #FFFFFF;
-      border: 1px solid rgba(151,151,151,0.14);
-      border-radius: 5px;
-      width: 100%;
-      font-size: 13px;
-      padding: 4px 10px;
-
-      &:focus {
-        border: 1px solid #4DA1FF;
-        outline: 0;
+    .close {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      svg {
+        width: 10px;
       }
     }
   }
+  .btn {
+    position: absolute;
+
+    &.btn-bottom {
+      right: 20px;
+      bottom: 20px;
+    }
+  }
+}
 </style>

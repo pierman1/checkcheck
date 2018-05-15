@@ -23,7 +23,7 @@
       </div>
       <div class="card-footer">
         <button type="button" name="button" @click="$modal.show('add-users-to-playbook')">Add users</button>
-        <router-link :to="{ name: '', params: {} }">Details</router-link>
+        <router-link :to="{ name: name, params: {id: data['.key']} }">Details</router-link>
       </div>
   </div>
 </template>
@@ -41,12 +41,20 @@ export default {
   .card {
     margin-bottom: 10px;
     overflow: hidden;
-    margin-right: 10px;
     outline: 3px solid transparent;
     transition: 250ms;
-    width: calc(20% - 10px);
     position: relative;
     background-color: #fff;
+    width: 100%;
+
+    @include tablet-up {
+      width: calc(33.33% - 10px);
+      margin-right: 10px;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
 
     .link {
       text-decoration: none;

@@ -10,6 +10,7 @@
     </div>
     <Modals/>
     <Sidebar/>
+    <notifications group="foo" position="bottom right"/>
   </div>
 
 </template>

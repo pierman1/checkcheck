@@ -19,7 +19,8 @@ export default {
 @import '../../assets/global.scss';
 
 .your-activity {
-  background-color: $purple;
+  background: linear-gradient(135deg, rgba(101,94,254,1) 0%,rgba(255,137,241,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
   width: calc(60%) !important;
   color: #fff;
 }

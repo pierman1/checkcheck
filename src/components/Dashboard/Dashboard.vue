@@ -94,17 +94,22 @@ export default {
       'getUser'
     ]),
     latestActivities () {
-      return this.allActivities.slice(0, 3)
+      return this.acitivites.slice(0, 3)
     }
   },
   firestore () {
     return {
       // playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid),
-      allActivities: db.collection('activity').orderBy('timestamp', 'desc').limit(4)
+      acitivites: db.collection('activity').orderBy('timestamp', 'desc').limit(4),
+      allActivities: db.collection('activity').orderBy('timestamp', 'desc')
     }
   },
   created() {
     this.loadProfile()
+    const now = new Date();
+    const lastMidnight = now.setHours(0,0,0,0);
+
+    console.log(now, lastMidnight)
   },
   methods: {
     loadProfile: function() {

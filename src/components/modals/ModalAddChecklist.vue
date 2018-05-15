@@ -76,7 +76,7 @@ export default {
     },
     openModal () {
       console.log('open-modal');
-      this.$modal('ModalAddChecklist')
+      // this.$modal('ModalAddChecklist')
     }
   },
   created () {
