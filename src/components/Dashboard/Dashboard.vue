@@ -67,22 +67,16 @@ export default {
         labels: ['May \'17', 'June \'17', 'July \'17', 'August \'17', 'September \'17', 'October \'17', 'November \'17', 'December \'17', 'January \'18', 'February \'18', 'March \'18', 'April \'18'],
         datasets: [
           {
-            label: 'Webshop',
-            data: [40, 39, 10, 40, 39, 80, 40, 20, 25, 60, 90, 99],
+            label: 'Recent Activity',
+            data: [40, 39, 10, 40, 39, 80, 40, 20, 25, 68, 55, 80],
             borderColor: '#655EFE',
             backgroundColor: 'rgba(10, 156, 230, 0.1)'
+          }, {
+            label: 'Personal Activity',
+            data: [60, 55, 32, 10, 2, 12, 53, 10, 40, 39, 70, 32],
+            borderColor: '#655EFE',
+            backgroundColor: 'rgb(255,137,241, 0.3)'
           }
-          // }, {
-          //   label: 'Amsterdam Store',
-          //   data: [60, 55, 32, 10, 2, 12, 53, 10, 40, 39, 80, 32],
-          //   borderColor: '#655EFE',
-          //   backgroundColor: 'rgba(0, 0, 0, 0.1)'
-          // }, {
-          //   label: 'Rotterdam Store',
-          //   data: [12, 53, 10, 40, 39, 60, 55, 32, 10, 2, 80, 32],
-          //   borderColor: '#655EFE',
-          //   backgroundColor: 'rgba(0, 0, 0, 0.1)'
-          // }
         ],
         responsive: true,
         maintainAspectRatio: false
