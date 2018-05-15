@@ -23,8 +23,14 @@
             <h2 class="title">Playbooks</h2>
             <button type="button" @click="$modal.show('add-playbook')">New playbook</button>
           </div>
-          <div class="playbooks-container">
+          <div class="playbooks-container" v-if="playbooks.length > 0">
             <Card v-for="playbook in playbooks" :data="playbook" :name="name"></Card>
+          </div>
+          <div class="playbooks-container white" v-else>
+            <svg width="68" height="81" xmlns="http://www.w3.org/2000/svg"><path d="M49.6 31.488h17.777L36.266.377 5.155 31.488h18.222c0 22.222-7.111 37.778-22.667 48.889 22.222-4.445 44.445-17.778 48.89-48.889z" fill="#655EFE" fill-rule="nonzero"/></svg>
+            <div class="text-container">
+              Start by creating your fist playbook!
+            </div>
           </div>
         </div>
       </div>
@@ -183,6 +189,26 @@ export default {
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+
+    &.white {
+      position: relative;
+
+      .text-container {
+        position: absolute;
+        right: 140px;
+        top: 70px;
+        font-weight: 700;
+        font-size: 28px;
+        color: $purple;
+      }
+
+      svg {
+        position: absolute;
+        right: 40px;
+        width: 80px;
+        height: auto;
+      }
+    }
   }
 }
 </style>

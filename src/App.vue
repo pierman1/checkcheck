@@ -22,12 +22,14 @@
   import firebase from 'firebase'
   import Modals from './components/modals'
   import Sidebar from './components/sidebar/Sidebar.vue'
+  import { db } from './firebase'
+  import { mapGetters, mapMutations } from 'vuex'
 
   export default {
     name: 'app',
     data() {
       return {
-        user: false
+        user: true
       }
     },
     components: {
@@ -37,10 +39,29 @@
       Modals,
       Sidebar
     },
-    updated() {
-      this.user = firebase.auth().currentUser
-      console.log(firebase.auth().currentUser);
-      // console.log('joe');
+    computed: {
+      ...mapGetters([
+        'getUser'
+      ])
+    },
+    methods: {
+      setUserOffline (event) {
+        db.collection('users').doc(this.getUser.uid).update({
+          status: 'offline'
+        })
+      },
+      setUserOnline (event) {
+        console.log('set user online => ', this.getUser.uid);
+        if (this.getUser.uid) {
+          db.collection('users').doc(this.getUser.uid).update({
+            status: 'online'
+          })
+        }
+      }
+    },
+    created () {
+      window.addEventListener('beforeunload', this.setUserOffline)
+      this.setUserOnline()
     }
   }
 </script>
@@ -201,9 +222,9 @@ p {
   text-align: justify;
 }
 
-.hidden-sm {
-  display: none;
-}
+// .hidden-sm {
+//   display: none;
+// }
 
 // grid
 

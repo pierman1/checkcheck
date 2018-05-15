@@ -4,17 +4,18 @@ import Home from '../components/Home'
 import Dashboard from '../components/Dashboard/Dashboard'
 import Teams from '../components/Teams'
 import Team from '../components/Team/Team'
-import Playbooks from '../components/Playbooks/Playbooks'
+import PlaybooksSinglePage from '../components/Playbooks/PlaybooksSingle.page.vue'
 import PlaybooksPage from '../components/Playbooks/Playbooks.page.vue'
 import ChecklistsPage from '../components/Checklists/Checklists.page.vue'
 import Profile from '../components/Profile/Profile'
-import { store } from '../store.js'
-
-import firebase from 'firebase'
-import { bus } from '../main'
 
 import Auth from '../components/Auth'
 import AuthSucces from '../components/AuthSucces'
+
+import firebase from 'firebase'
+import { db } from '../firebase'
+import { store } from '../store.js'
+import { bus } from '../main'
 
 Vue.use(Router)
 
@@ -26,27 +27,23 @@ function firestore () {
 
 const checkUser = function (to, from, next) {
   firebase.auth().onAuthStateChanged(function (user) {
+    var key = firebase.auth().currentUser.uid
     if (user) {
-      console.log('router => ', user)
-
-      // console.log(store.state.user)
-      // store.dispatch('setUser', user)
-      // console.log(store.state)
-      // this.user = firebase.auth().currentUser
       store.commit('setUser', user)
+      var localId = localStorage.getItem('userId')
 
-      // var localId = localStorage.getItem('userId')
-
-      if (localStorage.getItem('userId') === null) {
-        localStorage.setItem('userId', user.uid)
-        firestore.users.add({
-          uid: user.uid,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          email: email,
-          status: 'online'
-        })
-      }
+      // if (localStorage.getItem('userId') === null) {
+      //   localStorage.setItem('userId', user.uid)
+        db
+          .collection('users')
+          .doc(key)
+          .set({
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            status: 'online'
+          })
+      // }
 
       bus.$emit('userLoggedIn', user)
       next()
@@ -98,7 +95,7 @@ export default new Router({
     {
       path: '/playbooks/:id',
       name: 'playbook',
-      component: Playbooks,
+      component: PlaybooksSinglePage,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       }
@@ -114,7 +111,7 @@ export default new Router({
     {
       path: '/checklists/:id',
       name: 'checklist',
-      component: Playbooks,
+      component: PlaybooksSinglePage,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       }

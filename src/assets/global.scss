@@ -7,6 +7,8 @@ $purple: #655EFE;
 $pink: #FC91CE;
 $light-blue: #59cbff;
 
+@import './forms.scss';
+
 .btn {
   &:focus {
     outline: 0;

@@ -48,12 +48,13 @@ export default {
   },
   watch: {
     activity: function () {
-      console.log('log');
       this.activity.forEach((item) => {
         item.animateOut = true
       })
 
-      this.activity[2].animateOut = false
+      if (this.activity[2]) {
+        this.activity[2].animateOut = false
+      }
     }
   }
 }

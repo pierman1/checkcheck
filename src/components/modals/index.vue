@@ -4,6 +4,7 @@
     <addPlaybook/>
     <settings/>
     <addUsersToPlaybook/>
+    <addChecklistsToPlaybook/>
   </div>
 </template>
 
@@ -12,13 +13,15 @@ import ModalAddChecklist from './ModalAddChecklist.vue'
 import addPlaybook from './addPlaybook.vue'
 import settings from './settings.vue'
 import addUsersToPlaybook from './addUsersToPlaybook.vue'
+import addChecklistsToPlaybook from './addChecklistsToPlaybook.vue'
 export default {
   name: 'Modals',
   components: {
     settings,
     addUsersToPlaybook,
     ModalAddChecklist,
-    addPlaybook
+    addPlaybook,
+    addChecklistsToPlaybook
   }
 }
 </script>

@@ -1,0 +1,25 @@
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+
+  label {
+    font-size: 14px;
+  }
+
+  input {
+    border: 1px solid #cecece;
+    outline: 1px solid transparent;
+    transition: .25s;
+    border-radius: 2px;
+    padding: 4px 8px;
+
+    &:focus {
+      outline: 1px solid $light-blue;
+    }
+  }
+
+  &.half {
+    width: 50%;
+  }
+}

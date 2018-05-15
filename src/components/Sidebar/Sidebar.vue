@@ -5,10 +5,9 @@
     </transition>
     <transition name="slide-fade">
       <div class="content" v-if="getSidebarStatus">
-        <div class="close">
+        <!-- <div class="close">
           x
-        </div>
-        <h1 class="title">Sidebar</h1>
+        </div> -->
         <ActiveUsers/>
       </div>
     </transition>
@@ -17,7 +16,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import ActiveUsers from './ActiveUsers.vue'
+import ActiveUsers from '../Users/activeUsers.vue'
 
 export default {
   name: 'Sidebar',
@@ -36,7 +35,6 @@ export default {
   },
   methods: {
     hideSidebar() {
-      console.log('joezee');
       this.$store.state.sidebarStatus = false
     }
   }
@@ -63,6 +61,7 @@ export default {
 
   .title {
     font-size: 14px;
+    padding: 10px;
   }
 
   .sidebar {
@@ -77,7 +76,6 @@ export default {
       top: 0;
       right: 0;
       bottom: 0;
-      padding: 20px;
       margin-top: 40px;
     }
 

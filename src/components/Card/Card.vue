@@ -13,16 +13,24 @@
             <span>{{data.createdBy.name}}</span>
           </li>
           <li>
-            Contains <span>10</span> checklists
+            Contains
+            <span v-if="data.checklists">{{data.checklists}}</span>
+            <span v-else>0</span> checklists
           </li>
           <li>
-            Users:
-            <span>{{data.users.length}}</span>
+            <!-- Users:
+            <span>{{data.users.length}}</span> -->
+
+            <img v-for="user in data.users" v-if="user.photoURL" :src="user.photoURL" alt="" :class="{online: user.status === 'online'}">
+          </li>
+          <li>
+            Due date:
+            <span>{{data.duedate}}</span>
           </li>
         </ul>
       </div>
       <div class="card-footer">
-        <button type="button" name="button" @click="$modal.show('add-users-to-playbook')">Add users</button>
+        <button type="button" name="button" @click="$modal.show('add-users-to-playbook', data)">Add users</button>
         <router-link :to="{ name: name, params: {id: data['.key']} }">Details</router-link>
       </div>
   </div>
@@ -127,11 +135,26 @@ export default {
       padding: 0;
       li {
         opacity: 0.5;
-        font-family: ProximaNova-Regular;
-        font-size: 10px;
-        font-weight: 800;
+        font-size: 12px;
         color: #323C47;
         letter-spacing: 0.11px;
+
+        img {
+          display: inline;
+          width: 30px;
+          border-radius: 50%;
+          transform: translateX(-5px);
+          margin-right: 4px;
+          border: 2px solid $purple;
+
+          &.online {
+            border: 2px solid green;
+          }
+
+          &:first-of-type {
+
+          }
+        }
 
         span {
           color: $light-blue;

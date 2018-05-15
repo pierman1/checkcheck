@@ -227,6 +227,22 @@ export default {
         transition: 250ms;
       }
 
+      progress {
+        border-radius: 2px;
+        height: 5px;
+      }
+      progress::-webkit-progress-bar {
+        background-color: white;
+        // border-radius: 2px;
+      }
+      progress::-webkit-progress-value {
+        //  border-radius: 2px;
+         background-color: #000;
+      }
+      progress::-moz-progress-bar {
+        /* style rules */
+      }
+
       span {
         position: absolute;
         right: -50px;

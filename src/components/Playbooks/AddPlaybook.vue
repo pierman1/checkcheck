@@ -53,7 +53,8 @@ export default {
           name: this.newPlaybook,
           createdBy: {
             name: this.user.displayName,
-            uid: this.user.uid
+            uid: this.user.uid,
+            photoUrl: this.getUser.photoURL
           },
           users: [
             this.user.uid

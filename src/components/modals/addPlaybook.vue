@@ -5,13 +5,33 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.9 21.9">
           <path d="M14.1 11.3c-.2-.2-.2-.5 0-.7l7.5-7.5c.2-.2.3-.5.3-.7s-.1-.5-.3-.7L20.2.3c-.2-.2-.5-.3-.7-.3-.3 0-.5.1-.7.3l-7.5 7.5c-.2.2-.5.2-.7 0L3.1.3C2.9.1 2.6 0 2.4 0s-.5.1-.7.3L.3 1.7c-.2.2-.3.5-.3.7s.1.5.3.7l7.5 7.5c.2.2.2.5 0 .7L.3 18.8c-.2.2-.3.5-.3.7s.1.5.3.7l1.4 1.4c.2.2.5.3.7.3s.5-.1.7-.3l7.5-7.5c.2-.2.5-.2.7 0l7.5 7.5c.2.2.5.3.7.3s.5-.1.7-.3l1.4-1.4c.2-.2.3-.5.3-.7s-.1-.5-.3-.7l-7.5-7.5z"/>
         </svg>
-      </div>
-      <h2 class="title">Add playbook</h2>
-      <div class="select-user">
-        <!-- <button type="button" @click="addPlaybook">Add playbook</button> -->
+        </div>
+
+        <h2 class="title">Add playbook</h2>
+        <div class="select-user">
+          <!-- <button type="button" @click="addPlaybook">Add playbook</button> -->
       </div>
     </div>
-    <input v-model="newPlaybook">
+    <div class="modal-body">
+      <div class="form-input-container half">
+        <label for="name">Playbook name</label>
+        <input v-model="newPlaybook">
+      </div>
+      <div class="form-input-container half">
+        <label for="name">Due date</label>
+        <input v-model="newPlaybookDuedate" type="date">
+      </div>
+      <!-- <div class="form-input-container half">
+        <label for="name">Due date</label>
+        <select>
+          <option value="">Edwin</option>
+          <option value="">Edwin</option>
+          <option value="">Edwin</option>
+          <option value="">Edwin</option>
+          <option value="">Edwin</option>
+        </select>
+      </div> -->
+    </div>
     <button class="btn btn-purple btn-bottom" @click="addPlaybook" name="button">Add playbook</button>
   </modal>
 </template>
@@ -27,6 +47,7 @@ export default {
   data () {
     return {
       newPlaybook: '',
+      newPlaybookDuedate: '',
       createdBy: {},
       teams:[]
     }
@@ -55,8 +76,10 @@ export default {
           name: this.newPlaybook,
           createdBy: {
             name: this.getUser.displayName,
-            uid: this.getUser.uid
+            uid: this.getUser.uid,
+            photoUrl: this.getUser.photoURL
           },
+          duedate: this.newPlaybookDuedate,
           users: [
             this.getUser.uid
           ],
@@ -80,9 +103,11 @@ export default {
       this.$notify({
         group: 'foo',
         title: 'Checkbot message',
-        duration: 60000,
+        duration: 6000,
         text: this.getUser.displayName + ' created playbook ' + this.newPlaybook
       });
+
+      this.$modal.hide('add-playbook')
 
       this.newPlaybook = '';
     }

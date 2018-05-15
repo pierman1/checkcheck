@@ -1,5 +1,5 @@
 <template lang="html">
-  <modal name="add-users-to-playbook" class="settings">
+  <modal name="add-users-to-playbook" @before-open="beforeOpen" class="settings">
     <div class="modal-container">
       <div class="close">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.9 21.9">
@@ -9,14 +9,9 @@
       <h2 class="title">Settings</h2>
       <div class="select-user">
         <p>select user:</p>
-        <select class="" name="">
-          <option value="">Pierre</option>
-          <option value="">Lars</option>
-          <option value="">Mark</option>
-          <option value="">Edwin</option>
-          <option value="">Auke</option>
-          <option value="">Tim</option>
-          <option value="">Jennifer</option>
+        <select class="" v-model="selectedUser">
+          <option disabled value="">Please select user</option>
+          <option v-for="user in users" :value="user">{{user.displayName}}</option>
         </select>
       </div>
     </div>
@@ -26,13 +21,40 @@
         <input type="checkbox" name="administrator" value="">
       </div>
     </div>
-    <button class="btn btn-purple btn-bottom" name="button">Save settings</button>
+    <button class="btn btn-purple btn-bottom" @click="addUser" name="button">Save settings</button>
   </modal>
 </template>
 
 <script>
+import {db} from '../../firebase'
+
 export default {
-  name: 'addUsersToPlaybook'
+  name: 'addUsersToPlaybook',
+  data () {
+    return {
+      playbook: {},
+      selectedUser: {}
+    }
+  },
+  firestore () {
+    return {
+      users: db.collection('users')
+    }
+  },
+  methods: {
+    beforeOpen (data) {
+      console.log(data);
+      this.playbook = data.params
+    },
+    addUser () {
+      var newArray = []
+      if (this.playbook.users) {
+        newArray = this.playbook.users
+      }
+      newArray.push(this.selectedUser)
+      db.collection('playbooks').doc(this.playbook['.key']).set({users: newArray}, {merge: true})
+    }
+  }
 }
 </script>
 

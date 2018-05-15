@@ -11,19 +11,19 @@
             <div class="stat-container">
               <router-link to="/">
                 📚 Active playbooks |
-                <span>165</span>
+                <span>{{playbooks.length}}</span>
               </router-link>
             </div>
             <div class="stat-container">
               <router-link to="/">
                 📑 Total checklists |
-                <span>432</span>
+                <span>{{checklists.length}}</span>
               </router-link>
             </div>
             <div class="stat-container">
               <router-link to="/">
                 💁 Active users |
-                <span>6</span>
+                <span>{{activeUsers.length}}</span>
               </router-link>
             </div>
             <div class="stat-container">
@@ -95,7 +95,10 @@ export default {
     return {
       // playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid),
       acitivites: db.collection('activity').orderBy('timestamp', 'desc').limit(4),
-      allActivities: db.collection('activity').orderBy('timestamp', 'desc')
+      allActivities: db.collection('activity').orderBy('timestamp', 'desc'),
+      activeUsers: db.collection('users').where('status', '==', 'online'),
+      playbooks: db.collection('playbooks'),
+      checklists: db.collection('checklists')
     }
   },
   created() {
