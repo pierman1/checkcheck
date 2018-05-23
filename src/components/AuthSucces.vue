@@ -21,6 +21,8 @@
 import { db } from '../firebase'
 import firebase from 'firebase'
 import {mapMutations} from 'vuex'
+import {mapState} from 'vuex'
+
 export default {
   name: 'AuthSucces',
   data() {
@@ -38,6 +40,11 @@ export default {
       users: db.collection('users')
     }
   },
+  methods: {
+    logOut() {
+      firebase.auth().signOut()
+    }
+  },
   created() {
     this.user = firebase.auth().currentUser
 
@@ -47,25 +54,21 @@ export default {
       this.photo = this.user.photoUrl
       this.userId = this.user.uid
 
-      this.$store.commit('setUser', this.user)
+      // this.$store.dispatch('users/addUser', {
+      //   displayName: this.user.displayName,
+      //   email : this.user.email,
+      //   photo : this.user.photoUrl,
+      //   userId : this.user.uid
+      // })
 
-      var localId = localStorage.getItem('userId')
+      // this.$store.commit('setUser', this.user)
 
-      console.log('loclas: ', localStorage.getItem('userId'))
+      // var localId : localStorage.getItem('userId')
 
-      if (localStorage.getItem('userId') === null) {
-        localStorage.setItem('userId', this.user.uid)
-        this.$firestore.users.add({
-          uid: this.user.uid,
-          displayName: this.user.displayName,
-          photoURL: this.user.photoURL,
-          email: this.email,
-          status: 'online'
-        })
-      }
-      // if(localStorage.getItem('userId') === null) {
-      //   console.log('Undefinted!!!!!!!!!!!!!!!!!!!')
-      //   window.localStorage.setItem('userId', this.user.uid)
+      // console.log('loclas: ', localStorage.getItem('userId'))
+
+      // if (localStorage.getItem('userId') === null) {
+      //   localStorage.setItem('userId', this.user.uid)
       //   this.$firestore.users.add({
       //     uid: this.user.uid,
       //     displayName: this.user.displayName,
@@ -74,11 +77,6 @@ export default {
       //     status: 'online'
       //   })
       // }
-    }
-  },
-  methods: {
-    logOut() {
-      firebase.auth().signOut()
     }
   }
 }

@@ -5,41 +5,78 @@
         <div class="inner">
           <div class="inner-header">
             <h2 class="title">All checklists</h2>
-            <div class="">
-
+            <div class="filters-cta" @click="showFilters">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
-            <button type="button" @click="$modal.show('addChecklist')">New checklist</button>
+            <button type="button" @click="$modal.show('add-checklist')">New checklist</button>
           </div>
-          <div class="checklists-container">
-            <Card v-for="checklist in checklists" :data="checklist" :name="name"></Card>
+          <div class="inner-header" v-if="filtersVisible">
+            <h2 class="title">Filters</h2>
+            <button type="button" class="filter" @click="showAll">All</button>
+            <button type="button" class="filter" @click="filter(tag, $event)" v-for="tag in tags">{{tag.name}}</button>
+          </div>
+          <div class="checklists-container" v-if="!filterOn && checklists.length > 0">
+            <Checklist v-for="checklist in checklists" :data="checklist" :name="name"></Checklist>
+          </div>
+          <div class="checklists-container" v-if="filterOn">
+            <Checklist v-for="checklist in filteredChecklists" :data="checklist" :name="name"></Checklist>
           </div>
         </div>
       </div>
-      <!-- <div class="col">
-        <AddChecklist></AddChecklist>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import { db } from '../../firebase'
-import Card from '../Card/Card'
-// import AddChecklist from './AddChecklist'
+import Checklist from './Checklist.vue'
+
 export default {
   name: 'ChecklistsPage',
   components: {
-    Card
-    // AddChecklist
+    Checklist
   },
   data() {
     return {
-      name: 'checklist'
+      name: 'checklist',
+      filteredChecklists: [],
+      filtersVisible: false,
+      filterOn: false
+    }
+  },
+  methods: {
+    showFilters () {
+      if (this.filtersVisible) {
+        this.filtersVisible = false
+      } else {
+        this.filtersVisible = true
+      }
+    },
+    filter(tag, event) {
+      this.filteredChecklists = []
+      this.filterOn = true
+      var tagName = tag.name
+      db.collection('checklists').get().then(snapshot => {
+        snapshot.docs.forEach(doc => {
+
+          var data = doc.data()
+
+          if(data.tag.name === tagName) {
+            this.filteredChecklists.push(data)
+          }
+        })
+      })
+    },
+    showAll() {
+      this.filterOn = false
     }
   },
   firestore() {
     return {
-      checklists: db.collection('checklists')
+      checklists: db.collection('checklists'),
+      tags: db.collection('tags')
     }
   }
 }
@@ -97,6 +134,12 @@ export default {
         // border-left: 1px solid #F0F0F0;
       }
     }
+  }
+
+  .filter {
+    @extend .btn-purple-border;
+    width: auto;
+    margin-left: 10px;
   }
 
   button {

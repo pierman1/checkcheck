@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="navigation-second" :class="{ 'sidebarOpen' : $store.state.sidebarStatus }">
+  <!-- <div class="navigation-second" :class="{ 'sidebarOpen' : $store.state.sidebarStatus }"> -->
+  <div class="navigation-second">
     <div class="left">
       <router-link class="link" :to="{ name: 'Dashboard', params: {} }">
         <span>Dashboard</span>
@@ -12,7 +13,7 @@
       </router-link>
     </div>
     <div class="right">
-      <button class="btn" name="button" @click="openActivity">Active users</button>
+      <!-- <button class="btn" name="button" @click="openActivity">Active users</button> -->
     </div>
   </div>
 </template>
@@ -23,18 +24,18 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'NavigationSecond',
   computed: {
-    ...mapGetters([
-      'getSidebarStatus'
-    ])
+    // ...mapGetters([
+    //   'getSidebarStatus'
+    // ])
   },
   methods: {
-    openActivity() {
-      if (!this.getSidebarStatus) {
-        this.$store.state.sidebarStatus = true
-      } else {
-        this.$store.state.sidebarStatus = false
-      }
-    }
+    // openActivity() {
+    //   if (!this.getSidebarStatus) {
+    //     this.$store.state.sidebarStatus = true
+    //   } else {
+    //     this.$store.state.sidebarStatus = false
+    //   }
+    // }
   }
 }
 </script>

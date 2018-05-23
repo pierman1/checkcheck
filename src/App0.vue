@@ -2,15 +2,15 @@
   <div id="app">
     <Header></Header>
     <!-- <Navigation v-show="user"></Navigation> -->
-    <NavigationSecond></NavigationSecond>
+    <NavigationSecond v-show="user"></NavigationSecond>
     <div class="main">
       <transition name="fade">
         <router-view :key="$route.path"></router-view>
       </transition>
     </div>
     <Modals/>
-    <!-- <Sidebar/> -->
-    <!-- <notifications group="foo" position="bottom right"/> -->
+    <Sidebar/>
+    <notifications group="foo" position="bottom right"/>
   </div>
 
 </template>
@@ -22,8 +22,8 @@
   import firebase from 'firebase'
   import Modals from './components/modals'
   import Sidebar from './components/sidebar/Sidebar.vue'
-  // import { db } from './firebase'
-  // import { mapGetters, mapMutations } from 'vuex'
+  import { db } from './firebase'
+  import { mapGetters, mapMutations } from 'vuex'
 
   export default {
     name: 'app',
@@ -34,34 +34,34 @@
     },
     components: {
       Header,
-      // Navigation,
+      Navigation,
       NavigationSecond,
-      Modals
-      // Sidebar
+      Modals,
+      Sidebar
     },
-    // computed: {
-    //   ...mapGetters([
-    //     'getUser'
-    //   ])
-    // },
-    // methods: {
-    //   setUserOffline (event) {
-    //     db.collection('users').doc(this.getUser.uid).update({
-    //       status: 'offline'
-    //     })
-    //   },
-    //   setUserOnline (event) {
-    //     console.log('set user online => ', this.getUser.uid);
-    //     if (this.getUser.uid) {
-    //       db.collection('users').doc(this.getUser.uid).update({
-    //         status: 'online'
-    //       })
-    //     }
-    //   }
-    // },
+    computed: {
+      ...mapGetters([
+        'getUser'
+      ])
+    },
+    methods: {
+      setUserOffline (event) {
+        db.collection('users').doc(this.getUser.uid).update({
+          status: 'offline'
+        })
+      },
+      setUserOnline (event) {
+        console.log('set user online => ', this.getUser.uid);
+        if (this.getUser.uid) {
+          db.collection('users').doc(this.getUser.uid).update({
+            status: 'online'
+          })
+        }
+      }
+    },
     created () {
-      // window.addEventListener('beforeunload', this.setUserOffline)
-      // this.setUserOnline()
+      window.addEventListener('beforeunload', this.setUserOffline)
+      this.setUserOnline()
     }
   }
 </script>

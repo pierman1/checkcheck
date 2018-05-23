@@ -5,7 +5,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.9 21.9">
           <path d="M14.1 11.3c-.2-.2-.2-.5 0-.7l7.5-7.5c.2-.2.3-.5.3-.7s-.1-.5-.3-.7L20.2.3c-.2-.2-.5-.3-.7-.3-.3 0-.5.1-.7.3l-7.5 7.5c-.2.2-.5.2-.7 0L3.1.3C2.9.1 2.6 0 2.4 0s-.5.1-.7.3L.3 1.7c-.2.2-.3.5-.3.7s.1.5.3.7l7.5 7.5c.2.2.2.5 0 .7L.3 18.8c-.2.2-.3.5-.3.7s.1.5.3.7l1.4 1.4c.2.2.5.3.7.3s.5-.1.7-.3l7.5-7.5c.2-.2.5-.2.7 0l7.5 7.5c.2.2.5.3.7.3s.5-.1.7-.3l1.4-1.4c.2-.2.3-.5.3-.7s-.1-.5-.3-.7l-7.5-7.5z"/>
         </svg>
-      </div>
+        </div>
 
         <h2 class="title">Add playbook</h2>
         <div class="select-user">
@@ -31,16 +31,16 @@
           <option value="">Edwin</option>
         </select>
       </div> -->
-      <div class="error-message">
-        {{errorMsg}}
-      </div>
     </div>
     <button class="btn btn-purple btn-bottom" @click="addPlaybook" name="button">Add playbook</button>
   </modal>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { db } from '../../firebase'
+import firebase from 'firebase'
+import { mapGetters, mapMutations } from 'vuex'
+
 
 export default {
   name: 'addPlaybook',
@@ -48,26 +48,72 @@ export default {
     return {
       newPlaybook: '',
       newPlaybookDuedate: '',
-      errorMsg: ''
+      createdBy: {},
+      teams:[]
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getUser'
+    ])
+  },
+  firestore() {
+    return {
+      playbooks: db.collection('playbooks'),
+      activity: db.collection('activity')
     }
   },
   methods: {
-    addPlaybook () {
-      console.log('add');
-      if (this.newPlaybook.length > 0 && this.newPlaybookDuedate) {
-        this.$store.dispatch('playbooks/addPlaybook', {
-          name: this.newPlaybook,
-          createdBy: this.$store.state.users.currentUser
-        })
-        this.$modal.hide('add-playbook')
-      } else {
-        this.errorMsg = 'Please fill all fields'
-      }
-    },
     closeModal () {
-      console.log('closeeeeee');
-      this.$modal.hide('add-checklist')
+      this.$modal.hide('add-playbook')
+    },
+    addPlaybook () {
+
+      var time = new Date()
+
+      this.$firestore.playbooks.add(
+        {
+          name: this.newPlaybook,
+          createdBy: {
+            name: this.getUser.displayName,
+            uid: this.getUser.uid,
+            photoUrl: this.getUser.photoURL
+          },
+          duedate: this.newPlaybookDuedate,
+          users: [
+            this.getUser.uid
+          ],
+          timestamp: time
+        }
+      );
+
+      var activityName = 'New Playbook: ' + this.newPlaybook
+
+      this.$firestore.activity.add({
+        itemName: this.newPlaybook,
+        name: activityName,
+        photoUrl: this.getUser.photoURL,
+        timestamp: time,
+        createdBy: {
+          name: this.getUser.displayName,
+          uid: this.getUser.uid
+        }
+      })
+
+      this.$notify({
+        group: 'foo',
+        title: 'Checkbot message',
+        duration: 6000,
+        text: this.getUser.displayName + ' created playbook ' + this.newPlaybook
+      });
+
+      this.$modal.hide('add-playbook')
+
+      this.newPlaybook = '';
     }
+  },
+  created () {
+    this.user = firebase.auth().currentUser
   }
 }
 </script>

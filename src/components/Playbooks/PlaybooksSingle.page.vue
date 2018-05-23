@@ -10,9 +10,9 @@
       <div class="container gradient">
         <div class="inner">
           <ul class="info">
-            <li><img v-if="playbook.createdBy.photoUrl" :src="playbook.createdBy.photoUrl" alt=""> {{playbook.createdBy.name}}</li>
-            <li>Users: {{playbook.users.length}}</li>
-            <li>Created at: {{playbook.timestamp}}</li>
+            <!-- <li><img v-if="playbook.createdBy.photoURL" :src="playbook.createdBy.photoURL" alt=""> {{playbook.createdBy.name}}</li> -->
+            <!-- <li>Users: {{playbook.users.length}}</li> -->
+            <!-- <li>Created at: {{playbook.timestamp}}</li> -->
           </ul>
 
           <div class="progress-container">

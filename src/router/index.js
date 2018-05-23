@@ -14,7 +14,8 @@ import AuthSucces from '../components/AuthSucces'
 
 import firebase from 'firebase'
 import { db } from '../firebase'
-import { store } from '../store.js'
+import store from '../store'
+
 import { bus } from '../main'
 
 Vue.use(Router)
@@ -29,20 +30,30 @@ const checkUser = function (to, from, next) {
   firebase.auth().onAuthStateChanged(function (user) {
     var key = firebase.auth().currentUser.uid
     if (user) {
-      store.commit('setUser', user)
-      var localId = localStorage.getItem('userId')
+      // store.commit('setUser', user)
+      // var localId = localStorage.getItem('userId')
 
       // if (localStorage.getItem('userId') === null) {
       //   localStorage.setItem('userId', user.uid)
-        db
-          .collection('users')
-          .doc(key)
-          .set({
-            uid: user.uid,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-            status: 'online'
-          })
+      // db
+      //   .collection('users')
+      //   .doc(key)
+      //   .set({
+      //     uid: user.uid,
+      //     displayName: user.displayName,
+      //     photoURL: user.photoURL,
+      //     status: 'online'
+      //   })
+      console.log(user.displayName)
+      console.log(user.displayName)
+      console.log(user.displayName)
+      console.log(user.displayName)
+      store.dispatch('users/addUser', {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        userId: user.uid
+      })
       // }
 
       bus.$emit('userLoggedIn', user)

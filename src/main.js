@@ -6,12 +6,14 @@ import firebase from 'firebase'
 import VueDraggable from 'vue-draggable'
 import VModal from 'vue-js-modal'
 import Notifications from 'vue-notification'
+import UUID from 'vue-uuid'
 
+Vue.use(UUID)
 Vue.use(VueDraggable)
 Vue.use(VModal)
 Vue.use(Notifications)
 
-import { store } from './store.js'
+import store from './store'
 // turns off the 'You are running Vue in development mode.' msg
 Vue.config.productionTip = false
 Vue.use(VueFirestore)

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <ModalAddChecklist/>
+    <addChecklist/>
     <addPlaybook/>
     <settings/>
     <addUsersToPlaybook/>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ModalAddChecklist from './ModalAddChecklist.vue'
+import addChecklist from './addChecklist.vue'
 import addPlaybook from './addPlaybook.vue'
 import settings from './settings.vue'
 import addUsersToPlaybook from './addUsersToPlaybook.vue'
@@ -19,7 +19,7 @@ export default {
   components: {
     settings,
     addUsersToPlaybook,
-    ModalAddChecklist,
+    addChecklist,
     addPlaybook,
     addChecklistsToPlaybook
   }

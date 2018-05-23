@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="card">
-    <router-link class="link" :to="{ name: name, params: {id: data['.key']} }">
+    <router-link class="link" :to="{ name: 'playbook', params: {id: data['.key']} }">
       <div class="card-header">
         <h3 class="card-title">{{ data.name }}</h3>
         <span class="status-text">Doing</span>
