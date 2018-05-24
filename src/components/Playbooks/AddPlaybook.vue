@@ -36,18 +36,6 @@ export default {
   methods: {
     addPlaybook () {
 
-      console.log('user', this.user);
-      console.log()
-
-      // this.$firestore.users
-      // var userId = this.getUser.uid
-      // console.log(userId)
-      //
-      // var thisUser = this.$firestore.users.where("uid", '==', 'vH9eFuuAA0d0z7l6r9RjU1obenS2')
-      //
-      // console.log('thisuser. ', thisUser);
-      // thisUser.playbooks.push(this.timestamp)
-
       this.$firestore.playbooks.add(
         {
           name: this.newPlaybook,

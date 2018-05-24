@@ -5,6 +5,9 @@
         <div class="inner">
           <div class="inner-header">
             <h2 class="title">Playbooks</h2>
+            <div class="filter-text"  v-if="allPlaybooks.length > 0">
+              filters:
+            </div>
             <div class="filters-cta" @click="showFilters" v-if="allPlaybooks.length > 0">
               <span></span>
               <span></span>
@@ -125,9 +128,6 @@ export default {
     this.$store.state.db.collection('playbooks').doc('I5INMeT7HBCeGJegkWjJ').onSnapshot(playbook => {
       let source = playbook.metadata.hasPendingWrites ? 'Local' : 'Server'
       console.log(`Source ${source}`)
-      // if (playbook && playbook.data()) {
-      //   playbook.data().checklists.forEach(checklist => this.$store.commit(''))
-      // }
     })
   }
 }
@@ -223,5 +223,13 @@ export default {
       }
     }
   }
+}
+
+.filter-text {
+  position: absolute;
+  right: 190px;
+  top: 19px;
+  font-weight: 100;
+  color: $purple;
 }
 </style>

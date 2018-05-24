@@ -9,22 +9,24 @@
           </div>
           <div class="stats-container">
             <div class="stat-container">
-              <router-link to="/">
+              <router-link to="/playbooks">
                 📚 Active playbooks |
                 <span>{{playbooks.length}}</span>
               </router-link>
             </div>
             <div class="stat-container">
-              <router-link to="/">
+              <router-link to="/checklists">
                 📑 Total checklists |
                 <span>{{checklists.length}}</span>
               </router-link>
             </div>
             <div class="stat-container">
-              <router-link to="/">
+              <!-- <router-link to="/"> -->
+              <a href="#">
                 💁 Active users |
                 <span>{{activeUsers.length}}</span>
-              </router-link>
+              </a>
+              <!-- </router-link> -->
             </div>
             <div class="stat-container">
               <div class="search">
@@ -96,7 +98,7 @@ export default {
       // playbooks: db.collection('playbooks').where("createdBy.uid", '==', this.getUser.uid),
       acitivites: db.collection('activity').orderBy('timestamp', 'desc').limit(4),
       allActivities: db.collection('activity').orderBy('timestamp', 'desc'),
-      activeUsers: db.collection('users').where('status', '==', 'online'),
+      activeUsers: db.collection('users'),
       playbooks: db.collection('playbooks'),
       checklists: db.collection('checklists')
     }

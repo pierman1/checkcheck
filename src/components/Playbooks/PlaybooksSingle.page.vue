@@ -3,8 +3,12 @@
     <div class="flex-container">
       <div class="container">
         <div class="inner">
-          <h1 class="title">{{playbook.name}}</h1>
-          <h2 class="title-secondary">Due data: {{playbook.duedate}}</h2>
+          <h1 class="title">
+            {{playbook.name}}
+             <span v-if="returnChecklists.length > 0">({{returnChecklists.length}})</span>
+           </h1>
+
+          <h2 class="title-secondary purple">Due data: {{playbook.duedate}}</h2>
         </div>
       </div>
       <div class="container gradient">
@@ -23,12 +27,16 @@
         </div>
       </div>
       <div class="container add-checklists">
-        <div class="inner">
-          <h2 class="title-secondary">Users</h2>
-          <!-- <select v-model="selected">
-            <option value="joe" default>Select an checklist</option>
-            <option v-for="checklist in AllChecklists" :value="checklist['.key']">{{checklist.name}}</option>
-          </select> -->
+        <div class="status">
+          <h2 class="title-secondary">Project status</h2>
+          <div class="stat doing">
+            doing
+          </div>
+        </div>
+        <div class="users" v-if="playbook.users.length > 0">
+          <h2 class="title-secondary" v-if="playbook.users.length > 0">Users ({{playbook.users.length}})</h2>
+          <h2 class="title-secondary" v-else>Users</h2>
+          <img v-for="user in playbook.users" v-if="user.photoURL" :src="user.photoURL" alt="" :class="{online: user.status === 'online'}">
         </div>
       </div>
       <div class="container add-checklists">
@@ -42,21 +50,29 @@
         </div>
       </div>
     </div>
-    <div class="checklist-container" v-if="allLists.length > 0">
+
+    <div class="checklist-container">
+      <Checklist v-if="returnChecklists.length > 0" v-for="list in returnChecklists" :data="list" :type="true" :playbook="playbook"></Checklist>
+    </div>
+<!--
+    {{checklists}}
+    {{playbook.checklists}} -->
+
+    <!-- <div class="checklist-container" v-if="allLists.length > 0">
       <div class="checklists">
         <Checklist v-for="(checklist, index) in allLists" :checklist="checklist" :keyId="AllChecklists[index]['.key']"/>
       </div>
-    </div>
-    <div class="checklist-container" v-else>
+    </div> -->
+    <!-- <div class="checklist-container" v-else>
       Start by adding checklists to the playbook
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { db } from '../../firebase';
 import Users from './Users'
-import Checklist from './Checklist.vue'
+import Checklist from '../Checklists/Checklist.vue'
 
 export default {
   name: 'Playbooks',
@@ -75,14 +91,28 @@ export default {
   firestore() {
     return {
       playbook: db.collection('playbooks').doc(this.$route.params.id),
-      AllChecklists: db.collection('checklists')
+      checklists: db.collection('checklists')
+    }
+  },
+  computed: {
+    returnChecklists () {
+      var list = []
+      this.checklists.forEach(checklist => {
+        const newList = this.playbook.checklists.filter(activeChecklist => {
+          if (activeChecklist.uid === checklist.uid) {
+            list.push(checklist)
+          }
+        })
+      })
+
+      return list
     }
   },
   methods: {
     getAllChecklists () {
       var self = this
       var filteredLists = []
-       db.collection("checklists").get().then((querySnapshot) => {
+       db.collection('checklists').get().then((querySnapshot) => {
 
          if (self.playbook.checklists) {
            self.playbook.checklists.forEach(function(checklist) {
@@ -134,7 +164,7 @@ export default {
     },
     openModal () {
       console.log('joeeejoejeoejeojeo');
-      this.$modal.show('addChecklistsToPlaybook')
+      this.$modal.show('addChecklistsToPlaybook', this.playbook)
     }
   },
   mounted () {
@@ -192,6 +222,11 @@ export default {
   }
 }
 
+.title-secondary {
+  &.purple {
+    color: $purple;
+  }
+}
 .container {
   width: 100%;
   background-color: #fff;
@@ -209,6 +244,10 @@ export default {
 
     .title-secondary {
       color: #fff;
+
+      &.purple {
+        color: $purple;
+      }
     }
   }
 
@@ -271,5 +310,44 @@ select {
   margin-top: 20px;
 
   @extend .btn-purple
+}
+
+.status {
+  margin-left: 10px;
+
+  .stat {
+    background-color: $purple;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    width: fit-content;
+    text-transform: capitalize;
+
+    &.doing {
+      background-color: $green;
+    }
+  }
+}
+
+.users {
+  margin-left: 10px;
+
+  img {
+    display: inline;
+    width: 30px;
+    border-radius: 50%;
+    transform: translateX(-5px);
+    margin-right: 4px;
+    border: 2px solid $purple;
+
+    &.online {
+      border: 2px solid green;
+    }
+
+    &:first-of-type {
+      margin-left: 5px;
+    }
+  }
 }
 </style>

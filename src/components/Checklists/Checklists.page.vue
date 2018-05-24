@@ -5,7 +5,10 @@
         <div class="inner">
           <div class="inner-header">
             <h2 class="title">All checklists</h2>
-            <div class="filters-cta" @click="showFilters">
+            <div class="filter-text"  v-if="checklists.length > 0">
+              filters:
+            </div>
+            <div class="filters-cta" @click="showFilters"  v-if="checklists.length > 0">
               <span></span>
               <span></span>
               <span></span>
@@ -75,7 +78,7 @@ export default {
   },
   firestore() {
     return {
-      checklists: db.collection('checklists'),
+      checklists: db.collection('checklists').orderBy('timestamp', 'asc'),
       tags: db.collection('tags')
     }
   }
@@ -162,5 +165,13 @@ export default {
     justify-content: flex-start;
     flex-wrap: wrap;
   }
+}
+
+.filter-text {
+  position: absolute;
+  right: 190px;
+  top: 19px;
+  font-weight: 100;
+  color: $purple;
 }
 </style>

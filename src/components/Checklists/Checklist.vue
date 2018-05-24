@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="checklist">
+  <div class="checklist" :class="{'playbookMode': type}">
+
     <div class="inner">
       <div class="container">
         <div class="name">
@@ -11,6 +12,10 @@
       </div>
       <div class="container">
         <div class="controls">
+          <div class="trash" v-if="!type" @click="deleteChecklist">
+            <svg width="10" height="13" xmlns="http://www.w3.org/2000/svg"><g fill="#000" fill-rule="nonzero"><path d="M9.138 1.491h-1.69V.392A.393.393 0 0 0 7.05 0c-.021 0-.036.007-.043.014A.054.054 0 0 0 6.978 0H2.95a.387.387 0 0 0-.392.392v1.1H.862A.852.852 0 0 0 0 2.353v1.413h.748v8.04c0 .485.371.856.856.856h6.792c.485 0 .863-.37.863-.856v-8.04H10V2.354a.852.852 0 0 0-.862-.863zM3.343.785h3.314v.706H3.343V.785zm5.125 11.022c0 .05-.022.071-.072.071H1.604c-.05 0-.072-.021-.072-.071v-8.04h6.936v8.04zm.74-8.825H.792v-.628c0-.05.022-.078.071-.078h8.276c.05 0 .07.028.07.078v.628z"/><path d="M6.434 4.674h.794v6.467h-.794V4.674zm-1.831 0h.794v6.467h-.794V4.674zm-1.831 0h.794v6.467h-.794V4.674z"/></g></svg>
+          </div>
+
           <div class="filters-cta" @click="showTasks($event)">
             <span></span>
             <span></span>
@@ -19,19 +24,29 @@
         </div>
       </div>
     </div>
+
     <div class="tasks-container" v-if="open">
       <input type="text" name="" v-model="newTask" placeholder="New task" @change="addTask">
-
-      <div class="task" v-for="task in filteredTasks">
+      <!-- {{checkedFTasks.length}} -->
+      <div class="task" v-for="(task, index) in filteredTasks">
         <div class="inner">
           <div class="task__name">
-            {{task.name}}
+            <span>{{index + 1}}.</span> {{task.name}}
           </div>
 
-          <div class="task__controls">
+          <div class="task__controls task__controls--default" v-if="!type">
             <svg width="10" height="13" xmlns="http://www.w3.org/2000/svg"><g fill="#000" fill-rule="nonzero"><path d="M9.138 1.491h-1.69V.392A.393.393 0 0 0 7.05 0c-.021 0-.036.007-.043.014A.054.054 0 0 0 6.978 0H2.95a.387.387 0 0 0-.392.392v1.1H.862A.852.852 0 0 0 0 2.353v1.413h.748v8.04c0 .485.371.856.856.856h6.792c.485 0 .863-.37.863-.856v-8.04H10V2.354a.852.852 0 0 0-.862-.863zM3.343.785h3.314v.706H3.343V.785zm5.125 11.022c0 .05-.022.071-.072.071H1.604c-.05 0-.072-.021-.072-.071v-8.04h6.936v8.04zm.74-8.825H.792v-.628c0-.05.022-.078.071-.078h8.276c.05 0 .07.028.07.078v.628z"/><path d="M6.434 4.674h.794v6.467h-.794V4.674zm-1.831 0h.794v6.467h-.794V4.674zm-1.831 0h.794v6.467h-.794V4.674z"/></g></svg>
 
             <svg width="10" height="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.887 4.745L8.459 3.318a.343.343 0 0 0-.25-.106.343.343 0 0 0-.252.106.343.343 0 0 0-.106.25v.715h-2.14V2.14h.713c.097 0 .18-.035.25-.106a.343.343 0 0 0 .107-.25.343.343 0 0 0-.106-.251L5.247.106A.343.343 0 0 0 4.997 0a.343.343 0 0 0-.252.106L3.318 1.534a.343.343 0 0 0-.106.25c0 .097.035.18.106.251.07.071.154.106.25.106h.715v2.142H2.14v-.714a.343.343 0 0 0-.106-.251.343.343 0 0 0-.25-.106.343.343 0 0 0-.252.106L.106 4.745A.343.343 0 0 0 0 4.996c0 .097.035.18.106.251l1.427 1.428c.071.07.155.106.251.106.097 0 .18-.036.251-.106a.343.343 0 0 0 .106-.251V5.71h2.142v2.141h-.714a.343.343 0 0 0-.251.106.343.343 0 0 0-.106.251c0 .097.035.18.106.251l1.427 1.428c.071.07.155.106.251.106.097 0 .18-.036.251-.106l1.428-1.428a.343.343 0 0 0 .106-.25.343.343 0 0 0-.106-.252.343.343 0 0 0-.251-.106H5.71v-2.14h2.141v.713c0 .097.036.18.106.25.071.071.155.107.251.107.097 0 .18-.035.251-.106l1.428-1.428a.343.343 0 0 0 .106-.25.343.343 0 0 0-.106-.252z" fill="#000" fill-rule="nonzero"/></svg>
+          </div>
+
+          <div class="task__controls" v-if="type">
+
+            <div class="check" @click="checkTask(task, $event)">
+              <svg class="Icon CheckIcon TaskRowCompletionStatus-checkIcon" viewBox="0 0 32 32"><polygon points="27.672,4.786 10.901,21.557 4.328,14.984 1.5,17.812 10.901,27.214 30.5,7.615 "></polygon></svg>
+            </div>
+
+            <!-- <svg width="10" height="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.887 4.745L8.459 3.318a.343.343 0 0 0-.25-.106.343.343 0 0 0-.252.106.343.343 0 0 0-.106.25v.715h-2.14V2.14h.713c.097 0 .18-.035.25-.106a.343.343 0 0 0 .107-.25.343.343 0 0 0-.106-.251L5.247.106A.343.343 0 0 0 4.997 0a.343.343 0 0 0-.252.106L3.318 1.534a.343.343 0 0 0-.106.25c0 .097.035.18.106.251.07.071.154.106.25.106h.715v2.142H2.14v-.714a.343.343 0 0 0-.106-.251.343.343 0 0 0-.25-.106.343.343 0 0 0-.252.106L.106 4.745A.343.343 0 0 0 0 4.996c0 .097.035.18.106.251l1.427 1.428c.071.07.155.106.251.106.097 0 .18-.036.251-.106a.343.343 0 0 0 .106-.251V5.71h2.142v2.141h-.714a.343.343 0 0 0-.251.106.343.343 0 0 0-.106.251c0 .097.035.18.106.251l1.427 1.428c.071.07.155.106.251.106.097 0 .18-.036.251-.106l1.428-1.428a.343.343 0 0 0 .106-.25.343.343 0 0 0-.106-.252.343.343 0 0 0-.251-.106H5.71v-2.14h2.141v.713c0 .097.036.18.106.25.071.071.155.107.251.107.097 0 .18-.035.251-.106l1.428-1.428a.343.343 0 0 0 .106-.25.343.343 0 0 0-.106-.252z" fill="#000" fill-rule="nonzero"/></svg> -->
           </div>
         </div>
       </div>
@@ -44,20 +59,46 @@ import { db } from '../../firebase'
 
 export default {
   name: 'Checklist',
-  props: ['data'],
+  props: ['data', 'type', 'playbook'],
   data () {
     return {
       open: false,
       newTask: '',
       thistasks: [],
-      tasksOpen: false
+      tasksOpen: false,
+      newFiltered: []
     }
   },
   firestore () {
     return {
-      tasks: db.collection('tasks'),
-      filteredTasks: db.collection('tasks').where('checklistId', '==', this.data.uid)
+      playbooks: db.collection('playbooks'),
+      tasks: db.collection('tasks').orderBy('timestamp', 'asc'),
+      filteredTasks: db.collection('tasks').where('checklistId', '==', this.data.uid).orderBy('timestamp', 'asc')
     }
+  },
+  computed: {
+    // checkedFTasks () {
+    //   if (this.playbook.checkedTasks) {
+    //     var list = []
+    //
+    //     var filteredTasks = []
+    //     var thisPlaybookCheckedTasks = this.playbook.checkedTasks
+    //
+    //
+    //     this.tasks.forEach(newTask => {
+    //       // console.log(thisPlaybookCheckedTasks)
+    //       thisPlaybookCheckedTasks.forEach(checkedTask => {
+    //         if (newTask['.key'] !== checkedTask['.key']) {
+    //           filteredTasks.push(newTask)
+    //           // filteredTasks.splice(newTask)
+    //         }
+    //       })
+    //     })
+    //
+    //     // console.log(filteredTasks);
+    //     return filteredTasks
+    //   }
+    // }
   },
   methods: {
     showTasks (event) {
@@ -73,16 +114,30 @@ export default {
       this.$store.dispatch('tasks/addTask', {
         name: this.newTask,
         checklistId: this.data.uid,
-        createdBy: this.$store.state.users.currentUser
+        createdBy: this.$store.state.users.currentUser,
+        key: this.data['key']
       })
+
+      this.newTask = ''
+    },
+    checkTask (checkedTask) {
+      console.log('checkedTask', checkedTask);
+      console.log(this.filteredTasks)
+
+      var checkedTasks = this.playbooks
+
+      checkedTasks.push(checkedTask)
+
+      db.collection('playbooks').doc(this.playbook['.key']).update({
+        checkedTasks
+      })
+    },
+    deleteChecklist () {
+
+      if (this.data['.key']) {
+        this.$modal.show('delete-checklist', {key: this.data['.key']})
+      }
     }
-    // getTasks () {
-    //   if (this.data['.key']) {
-    //     this.thistasks =
-    //   } else {
-    //     console.log('something went wrong');
-    //   }
-    // }
   },
   created () {
     // this.getTasks()
@@ -195,28 +250,75 @@ export default {
       .task__controls {
         display: flex;
         position: relative;
+        opacity: 0;
+        transition: .2s opacity;
 
-        svg {
-          margin-right: 10px;
-          position: absolute;
-          top: 50%;
-          right: 0px;
-          transform: translateY(-50%);
-          cursor: pointer;
-          opacity: .5;
-          transition: .2s;
+        &.task_controls--default {
+          svg {
+            margin-right: 10px;
+            position: absolute;
+            top: 50%;
+            right: 0px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            opacity: .5;
+            transition: .2s;
 
-          &:first-of-type {
-            right: 20px;
+            &:first-of-type {
+              right: 20px;
+            }
+          }
+
+          &:hover {
+            svg {
+              opacity: .8;
+            }
           }
         }
       }
+      &:hover {
+        .task__controls {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .check {
+    border: 2px solid $purple;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+
+    cursor: pointer;
+    transition: 250ms;
+    transition-delay: 1500ms;
+    overflow: hidden;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      fill: $purple;
+      transition: 250ms;
     }
 
     &:hover {
+      border-color: $purple;
       svg {
-        opacity: .8;
+        fill: $purple;
       }
     }
+  }
+
+  .trash {
+    right: 55px;
+    position: absolute;
+    top: 6px;
+    cursor: pointer;
   }
 </style>

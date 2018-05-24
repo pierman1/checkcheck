@@ -51,27 +51,13 @@ export default {
   firestore() {
     return {
       checklists: db.collection('checklists'),
-      tags: db.collection('tags'),
+      tags: db.collection('tags').orderBy('name', 'asc'),
       activity: db.collection('activity')
     }
   },
   methods: {
     addChecklist () {
       var time = new Date()
-
-      // this.$firestore.checklists.add(
-      //   {
-      //     name: this.newChecklist,
-      //     createdBy: {
-      //       name: this.getUser.displayName,
-      //       uid: this.getUser.uid
-      //     },
-      //     users:[
-      //       this.getUser.uid
-      //     ],
-      //     timestamp: time
-      //   }
-      // );
       if (this.activeTag) {
         this.$store.dispatch('checklists/addChecklist', {
           name: this.newChecklist,
@@ -83,20 +69,27 @@ export default {
         this.errorMsg = 'Please fill all the required fields'
       }
 
-      this.$modal.hide('add-playbook')
+      this.$modal.hide('add-checklist')
 
       var activityName = 'Created new Checklist: ' + this.newChecklist
 
-      // this.$firestore.activity.add({
-      //   name: activityName,
-      //   photoURL: this.getUser.photoURL,
-      //   timestamp: time,
-      //   createdBy: {
-      //     name: this.getUser.displayName,
-      //     uid: this.getUser.uid
-      //   }
-      // })
+      this.$firestore.activity.add({
+        name: activityName,
+        photoURL: this.$store.state.users.currentUser.photoURL,
+        timestamp: time,
+        createdBy: {
+          name: this.$store.state.users.currentUser.displayName,
+          uid: this.$store.state.users.currentUser.userId
+        }
+      })
 
+      this.$notify({
+        group: 'foo',
+        title: this.$store.state.users.currentUser.displayName,
+        text: activityName
+      });
+
+      this.activeTag = ''
       this.newChecklist = '';
     },
     setActiveTag (tag, event) {

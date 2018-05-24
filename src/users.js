@@ -19,7 +19,10 @@ const actions = {
 
     users.forEach(user => commit(SET_USER, { user }))
   },
-  addUser ({ commit, rootState }, { displayName, email, photoURL, userId }) {
+  addUser (
+    { commit, rootState },
+    { displayName, email, photoURL, userId, admin }
+  ) {
     let userRef = rootState.db.collection('users')
     userRef
       .doc(userId)
@@ -27,14 +30,16 @@ const actions = {
         displayName: displayName,
         email: email,
         photoURL: photoURL,
-        userId: userId
+        userId: userId,
+        admin: admin
       })
       .then(() => {
         state.currentUser = {
           displayName: displayName,
           email: email,
           photoURL: photoURL,
-          userId: userId
+          userId: userId,
+          admin: admin
         }
       })
       .catch(error => {
@@ -45,7 +50,8 @@ const actions = {
             email: email,
             photoURL: photoURL,
             userId: userId,
-            timestamp: new Date()
+            timestamp: new Date(),
+            admin: admin
           })
           .then(res => console.log('User added'))
           .catch(err => console.log('Error => ', err))

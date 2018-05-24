@@ -13,29 +13,24 @@
       </router-link>
     </div>
     <div class="right">
-      <!-- <button class="btn" name="button" @click="openActivity">Active users</button> -->
+      <button class="btn" name="button" @click="openActivity">Active users</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'NavigationSecond',
-  computed: {
-    // ...mapGetters([
-    //   'getSidebarStatus'
-    // ])
-  },
   methods: {
-    // openActivity() {
-    //   if (!this.getSidebarStatus) {
-    //     this.$store.state.sidebarStatus = true
-    //   } else {
-    //     this.$store.state.sidebarStatus = false
-    //   }
-    // }
+    openActivity() {
+      console.log(this.$store.state);
+      if (!this.$store.state.sidebar.status) {
+        this.$store.state.sidebar.status = true
+      } else {
+        this.$store.state.sidebar.status = false
+      }
+    }
   }
 }
 </script>

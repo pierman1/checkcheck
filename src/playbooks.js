@@ -17,13 +17,14 @@ const actions = {
 
     playbooks.forEach(playbook => commit('SET_PLAYBOOK', { playbook }))
   },
-  addPlaybook ({ commit, rootState }, { name, createdBy }) {
+  addPlaybook ({ commit, rootState }, { name, createdBy, duedate }) {
     const playbookRef = rootState.db.collection('playbooks')
     playbookRef
       .add({
         name: name,
         createdBy: createdBy,
-        timestamp: new Date()
+        timestamp: new Date(),
+        duedate: duedate
       })
       .then(res => console.log('Playbook added'))
       .catch(err => console.log('Error => ', err))

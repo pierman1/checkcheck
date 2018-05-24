@@ -10,28 +10,35 @@
         <ul>
           <li>
             Created by:
-            <span>{{data.createdBy.name}}</span>
+            <span>{{data.createdBy.displayName}}</span>
           </li>
           <li>
             Contains
-            <span v-if="data.checklists">{{data.checklists}}</span>
+            <div v-if="data.checklists">
+              <!-- TODO: maak stats geven over voortgang -->
+              <!-- {{data.checklists}} -->
+              <span v-for="checklist in data.checklists">
+                {{checklist.name}}
+              </span>
+            </div>
             <span v-else>0</span> checklists
           </li>
-          <li>
+          <li class="users">
             <!-- Users:
             <span>{{data.users.length}}</span> -->
-
             <img v-for="user in data.users" v-if="user.photoURL" :src="user.photoURL" alt="" :class="{online: user.status === 'online'}">
           </li>
           <li>
             Due date:
+            {{checkDueDate}}
             <span>{{data.duedate}}</span>
+            <span>{{new Date()}}</span>
           </li>
         </ul>
       </div>
       <div class="card-footer">
-        <button type="button" name="button" @click="$modal.show('add-users-to-playbook', data)">Add users</button>
-        <router-link :to="{ name: name, params: {id: data['.key']} }">Details</router-link>
+        <button class="button" type="button" name="button" @click="$modal.show('add-users-to-playbook', data)">Add users</button>
+        <router-link class="button" :to="{ name: name, params: {id: data['.key']} }">Details</router-link>
       </div>
   </div>
 </template>
@@ -39,7 +46,29 @@
 <script>
 export default {
   name: 'Card',
-  props: [ 'data', 'name' ]
+  props: [ 'data', 'name' ],
+  methods: {
+    // toDate(s) {
+    //   s = s.split(/\D/g);
+    //   return new Date(s[2],--s[1],s[0]);
+    // }
+  },
+  computed : {
+    checkDueDate() {
+
+      var dateNow = new Date()
+      var dataDate = new Date(this.data.timestamp)
+
+      console.log(dateNow, dataDate);
+
+      // if (dateNow > dataDate) {
+      //   // return false
+      //   console.log('hij is nog geldig');
+      // } else {
+      //   return true
+      // }
+    }
+  }
 }
 </script>
 
@@ -120,7 +149,6 @@ export default {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
-      padding: 20px 0;
       color: #cecece;
       a, button {
         font-size: 12px;
@@ -134,7 +162,7 @@ export default {
       list-style: none;
       padding: 0;
       li {
-        opacity: 0.5;
+        // opacity: 0.5;
         font-size: 12px;
         color: #323C47;
         letter-spacing: 0.11px;
@@ -146,6 +174,7 @@ export default {
           transform: translateX(-5px);
           margin-right: 4px;
           border: 2px solid $purple;
+          margin-right: -12px;
 
           &.online {
             border: 2px solid green;
@@ -161,11 +190,25 @@ export default {
         }
       }
     }
+  }
 
-    &:hover,
-    &.active {
-      // border: 2px solid $purple;
-      // outline: 3px solid #F2F8FF;
+  .users {
+    min-height: 40px;
+    margin-top: 8px;
+    margin-left: 5px;
+    position: absolute;
+    right: 20px;
+    top: 50px;
+  }
+
+  .button {
+    width: 50%;
+    text-align: center;
+    padding: 20px 0;
+    transition: .2s background;
+
+    &:hover {
+      background-color: $light-purple;
     }
   }
 </style>

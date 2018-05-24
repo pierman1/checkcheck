@@ -9,28 +9,17 @@
 
         <h2 class="title">Add playbook</h2>
         <div class="select-user">
-          <!-- <button type="button" @click="addPlaybook">Add playbook</button> -->
       </div>
     </div>
     <div class="modal-body">
       <div class="form-input-container half">
         <label for="name">Playbook name</label>
-        <input v-model="newPlaybook">
+        <input v-model="newPlaybook" placeholder="New playbook name">
       </div>
       <div class="form-input-container half">
         <label for="name">Due date</label>
         <input v-model="newPlaybookDuedate" type="date">
       </div>
-      <!-- <div class="form-input-container half">
-        <label for="name">Due date</label>
-        <select>
-          <option value="">Edwin</option>
-          <option value="">Edwin</option>
-          <option value="">Edwin</option>
-          <option value="">Edwin</option>
-          <option value="">Edwin</option>
-        </select>
-      </div> -->
       <div class="error-message">
         {{errorMsg}}
       </div>
@@ -40,7 +29,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+
+import { db } from '../../firebase'
 
 export default {
   name: 'addPlaybook',
@@ -51,21 +41,46 @@ export default {
       errorMsg: ''
     }
   },
+  firestore () {
+    return {
+      activity: db.collection('activity')
+    }
+  },
   methods: {
     addPlaybook () {
-      console.log('add');
       if (this.newPlaybook.length > 0 && this.newPlaybookDuedate) {
         this.$store.dispatch('playbooks/addPlaybook', {
           name: this.newPlaybook,
-          createdBy: this.$store.state.users.currentUser
+          createdBy: this.$store.state.users.currentUser,
+          duedate: this.newPlaybookDuedate
         })
+        this.newPlaybook = ''
+        this.newPlaybookDuedate = ''
         this.$modal.hide('add-playbook')
+
+        var activityName = 'Created new Playbook: ' + this.newPlaybook
+
+        this.$firestore.activity.add({
+          name: activityName,
+          photoURL: this.$store.state.users.currentUser.photoURL,
+          timestamp: new Date(),
+          createdBy: {
+            name: this.$store.state.users.currentUser.displayName,
+            uid: this.$store.state.users.currentUser.userId
+          }
+        })
+
+        this.$notify({
+          group: 'foo',
+          title: this.$store.state.users.currentUser.displayName,
+          text: activityName
+        });
+
       } else {
         this.errorMsg = 'Please fill all fields'
       }
     },
     closeModal () {
-      console.log('closeeeeee');
       this.$modal.hide('add-checklist')
     }
   }

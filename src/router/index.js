@@ -48,11 +48,13 @@ const checkUser = function (to, from, next) {
       console.log(user.displayName)
       console.log(user.displayName)
       console.log(user.displayName)
+
       store.dispatch('users/addUser', {
         displayName: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
-        userId: user.uid
+        userId: user.uid,
+        admin: true
       })
       // }
 

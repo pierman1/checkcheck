@@ -9,8 +9,8 @@
       </transition>
     </div>
     <Modals/>
-    <!-- <Sidebar/> -->
-    <!-- <notifications group="foo" position="bottom right"/> -->
+    <Sidebar/>
+    <notifications group="foo" position="bottom right"/>
   </div>
 
 </template>
@@ -36,8 +36,8 @@
       Header,
       // Navigation,
       NavigationSecond,
-      Modals
-      // Sidebar
+      Modals,
+      Sidebar
     },
     // computed: {
     //   ...mapGetters([

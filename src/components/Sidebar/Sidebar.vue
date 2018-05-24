@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="sidebar">
     <transition name="fade">
-      <div class="background" v-if="getSidebarStatus" @click="hideSidebar"></div>
+      <div class="background" v-if="this.$store.state.sidebar.status" @click="hideSidebar"></div>
     </transition>
     <transition name="slide-fade">
-      <div class="content" v-if="getSidebarStatus">
+      <div class="content" v-if="this.$store.state.sidebar.status">
         <!-- <div class="close">
           x
         </div> -->
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+// import { mapGetters, mapMutations } from 'vuex'
 import ActiveUsers from '../Users/activeUsers.vue'
 
 export default {
@@ -23,19 +23,9 @@ export default {
   components: {
     ActiveUsers
   },
-  data () {
-    return {
-      show: false
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'getSidebarStatus'
-    ])
-  },
   methods: {
     hideSidebar() {
-      this.$store.state.sidebarStatus = false
+      this.$store.state.sidebar.status = false
     }
   }
 }
