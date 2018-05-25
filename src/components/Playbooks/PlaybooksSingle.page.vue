@@ -8,7 +8,7 @@
              <span v-if="returnChecklists.length > 0">({{returnChecklists.length}})</span>
            </h1>
 
-          <h2 class="title-secondary purple">Due data: {{playbook.duedate}}</h2>
+          <h2 class="title-secondary red">Deadline: {{playbook.duedate}}</h2>
         </div>
       </div>
       <div class="container gradient">
@@ -29,8 +29,8 @@
       <div class="container add-checklists">
         <div class="status">
           <h2 class="title-secondary">Project status</h2>
-          <div class="stat doing">
-            doing
+          <div class="stat active">
+            active
           </div>
         </div>
         <div class="users" v-if="playbook.users.length > 0">
@@ -190,7 +190,7 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/global.scss';
 .playbooks-page {
-  width: calc(100% - 20px);
+  width: calc(100%);
   padding: 20px;
   display: flex;
   justify-content: space-between;
@@ -199,7 +199,7 @@ export default {
 }
 
 .flex-container {
-  width: 25%;
+  width: 20%;
 }
 
 .progress-container {
@@ -215,7 +215,7 @@ export default {
   }
   progress::-webkit-progress-value {
     //  border-radius: 2px;
-     background-color: #000;
+     background-color: $green;
   }
   progress::-moz-progress-bar {
     /* style rules */
@@ -226,6 +226,9 @@ export default {
   &.purple {
     color: $purple;
   }
+  &.red {
+    color: $red;
+  }
 }
 .container {
   width: 100%;
@@ -235,8 +238,9 @@ export default {
   position: relative;
 
   &.gradient {
-    background: linear-gradient(135deg, #655efe 0%, #ff89f1 100%);
+    // background: linear-gradient(135deg, #655efe 0%, #ff89f1 100%);
     margin-bottom: 0;
+    background-color: $purple;
 
     ul li {
       color: #fff;
@@ -294,7 +298,7 @@ export default {
 }
 
 .checklist-container {
-  width: calc(75% - 20px);
+  width: calc(80% - 10px);
 }
 
 select {
@@ -322,16 +326,20 @@ select {
     border-radius: 20px;
     font-size: 12px;
     width: fit-content;
-    text-transform: capitalize;
+    text-transform: lowercase;
+    display: inline;
 
-    &.doing {
+    &.active {
       background-color: $green;
     }
   }
 }
 
 .users {
-  margin-left: 10px;
+  width: 100%;
+  position: relative;
+  top: 10px;
+  left:5px;
 
   img {
     display: inline;

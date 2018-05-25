@@ -89,7 +89,6 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/global.scss';
 .add-playbook {
-
   h2 {
     font-size: 14px;
     font-weight: 700;
@@ -122,6 +121,7 @@ export default {
   .modal-container {
     padding: 20px;
     color: lighten($purple, 100%);
+    position: relative;
 
     &:first-of-type {
       background-color: $purple;
@@ -137,7 +137,7 @@ export default {
     }
   }
   .btn {
-    position: absolute;
+    position: fixed;
 
     &.btn-bottom {
       right: 20px;
@@ -148,6 +148,7 @@ export default {
 
 .modal-body {
   height: 80%;
+  overflow-y: scroll;
 }
 
 .all-checklists-container {

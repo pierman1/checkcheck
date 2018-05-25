@@ -3,7 +3,8 @@
     <router-link class="link" :to="{ name: 'playbook', params: {id: data['.key']} }">
       <div class="card-header">
         <h3 class="card-title">{{ data.name }}</h3>
-        <span class="status-text">Doing</span>
+        <span class="status-text" v-if="!checkDueDate">active</span>
+        <span class="status-text status-text--alert" v-else>Out of date</span>
       </div>
     </router-link>
       <div class="card-body">
@@ -13,15 +14,9 @@
             <span>{{data.createdBy.displayName}}</span>
           </li>
           <li>
-            Contains
-            <div v-if="data.checklists">
-              <!-- TODO: maak stats geven over voortgang -->
-              <!-- {{data.checklists}} -->
-              <span v-for="checklist in data.checklists">
-                {{checklist.name}}
-              </span>
-            </div>
-            <span v-else>0</span> checklists
+            Checklists:
+              <span v-if="data.checklists">{{data.checklists.length}}</span>
+              <span v-else>0 </span>
           </li>
           <li class="users">
             <!-- Users:
@@ -30,9 +25,7 @@
           </li>
           <li>
             Due date:
-            {{checkDueDate}}
             <span>{{data.duedate}}</span>
-            <span>{{new Date()}}</span>
           </li>
         </ul>
       </div>
@@ -57,16 +50,17 @@ export default {
     checkDueDate() {
 
       var dateNow = new Date()
-      var dataDate = new Date(this.data.timestamp)
+      var dataDate = new Date(this.data.duedate)
 
-      console.log(dateNow, dataDate);
-
-      // if (dateNow > dataDate) {
-      //   // return false
-      //   console.log('hij is nog geldig');
-      // } else {
-      //   return true
-      // }
+      if (dateNow > dataDate) {
+        return true
+      } else {
+        return false
+      }
+    },
+    checked () {
+      console.log(this.data.checklists)
+      return
     }
   }
 }
@@ -86,11 +80,6 @@ export default {
 
     @include tablet-up {
       width: calc(33.33% - 10px);
-      margin-right: 10px;
-
-      &:last-of-type {
-        margin-right: 0;
-      }
     }
 
     .link {
@@ -109,14 +98,18 @@ export default {
 
     .status-text {
       display: inline-block;
-      color: $purple;
-      opacity: .8;
-      background-color: #fff;
+      color: #fff;
+      background-color: $green;
       border-radius: 5px;
       padding: 3px 6px;
       text-transform: uppercase;
       font-size: 8px;
-      width: 40px;
+      text-align: center;
+
+      &.status-text--alert {
+        background-color: $red;
+        color: #fff;
+      }
     }
 
     .card-header {

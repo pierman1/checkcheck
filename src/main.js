@@ -7,7 +7,10 @@ import VueDraggable from 'vue-draggable'
 import VModal from 'vue-js-modal'
 import Notifications from 'vue-notification'
 import UUID from 'vue-uuid'
+import wysiwyg from "vue-wysiwyg";
 
+
+Vue.use(wysiwyg, {});
 Vue.use(UUID)
 Vue.use(VueDraggable)
 Vue.use(VModal)

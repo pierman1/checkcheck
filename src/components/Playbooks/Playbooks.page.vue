@@ -200,7 +200,7 @@ export default {
   .playbooks-container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
 
     &.white {

@@ -7,6 +7,7 @@ import Team from '../components/Team/Team'
 import PlaybooksSinglePage from '../components/Playbooks/PlaybooksSingle.page.vue'
 import PlaybooksPage from '../components/Playbooks/Playbooks.page.vue'
 import ChecklistsPage from '../components/Checklists/Checklists.page.vue'
+import ChecklistSingle from '../components/Checklists/ChecklistSingle.page.vue'
 import Profile from '../components/Profile/Profile'
 
 import Auth from '../components/Auth'
@@ -124,7 +125,7 @@ export default new Router({
     {
       path: '/checklists/:id',
       name: 'checklist',
-      component: PlaybooksSinglePage,
+      component: ChecklistSingle,
       beforeEnter: (to, from, next) => {
         checkUser(to, from, next)
       }
