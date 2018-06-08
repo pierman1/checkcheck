@@ -159,6 +159,26 @@ export default {
       &.active {
         background-color: darken($purple, 10%);
       }
+
+      &:nth-child(1){
+        background-color: #CEE879;
+      }
+
+      &:nth-child(2) {
+        background-color: #FABE28;
+      }
+
+      &:nth-child(3) {
+        background-color: #88C100;
+      }
+
+      &:nth-child(4) {
+        background-color: #00C176;
+      }
+
+      &:nth-child(5){
+        background-color: #FF8A00;
+      }
     }
   }
 

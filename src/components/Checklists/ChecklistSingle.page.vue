@@ -1,12 +1,29 @@
 <template lang="html">
   <div class="checklists-page">
     <div class="flex-container">
+
+      <div class="col">
+        <div class="content">
+
+          <h2 class="title">
+            {{checklist.name}}
+            <div class="info">
+              <ul>
+                <!-- <li>Created by: {{checklist.createdBy.displayName}}</li> -->
+              </ul>
+            </div>
+          </h2>
+          <div class="resultText" v-html="checklist.info">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container">
       <div class="col">
         <div class="inner">
           <div class="inner-header">
-            <h2 class="title">Checklist details</h2>
-            <wysiwyg v-model="myHTML" />
-
+            <h2 class="title">Add content to checklist</h2>
+            <wysiwyg v-model="content" :html="checklist.info"/>
           </div>
         </div>
       </div>
@@ -19,6 +36,26 @@ import { db } from '../../firebase'
 import Checklist from './Checklist.vue'
 
 export default {
+  data () {
+    return {
+      checklistInfo: '',
+      content: ''
+    }
+  },
+  firestore () {
+    return {
+      checklist: db.collection('checklists').doc(this.$route.params.id)
+    }
+  },
+  watch: {
+  	content: function(html) {
+      console.log('joe');
+    	console.log(html);
+      db.collection('checklists').doc(this.$route.params.id).set({
+        info: html
+      }, {merge: true})
+    }
+  }
 }
 </script>
 
@@ -46,7 +83,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
 
     .col {
       width: 100%;
@@ -72,6 +108,12 @@ export default {
         width: 30%;
         padding-left: 0;
         // border-left: 1px solid #F0F0F0;
+      }
+    }
+
+    &:last-of-type {
+      .col {
+        padding-top: 0;
       }
     }
   }
@@ -110,5 +152,11 @@ export default {
   top: 19px;
   font-weight: 100;
   color: $purple;
+}
+
+.content {
+  padding: 20px;
+  background-color: #fff;
+  font-size: 14px;
 }
 </style>

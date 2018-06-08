@@ -5,7 +5,7 @@
         <div class="inner">
           <h1 class="title">
             {{playbook.name}}
-             <span v-if="returnChecklists.length > 0">({{returnChecklists.length}})</span>
+             <span v-if="returnChecklists">({{returnChecklists.length}})</span>
            </h1>
 
           <h2 class="title-secondary red">Deadline: {{playbook.duedate}}</h2>
@@ -51,8 +51,8 @@
       </div>
     </div>
 
-    <div class="checklist-container">
-      <Checklist v-if="returnChecklists.length > 0" v-for="list in returnChecklists" :data="list" :type="true" :playbook="playbook"></Checklist>
+    <div class="checklist-container" v-if="returnChecklists.length > 0">
+      <Checklist v-for="list in returnChecklists" :data="list" :type="true" :playbook="playbook"></Checklist>
     </div>
 <!--
     {{checklists}}
@@ -63,9 +63,12 @@
         <Checklist v-for="(checklist, index) in allLists" :checklist="checklist" :keyId="AllChecklists[index]['.key']"/>
       </div>
     </div> -->
-    <!-- <div class="checklist-container" v-else>
-      Start by adding checklists to the playbook
-    </div> -->
+    <div class="cta" v-else>
+      <div class="inner">
+        <svg width="68" height="81" xmlns="http://www.w3.org/2000/svg"><path d="M49.6 31.488h17.777L36.266.377 5.155 31.488h18.222c0 22.222-7.111 37.778-22.667 48.889 22.222-4.445 44.445-17.778 48.89-48.889z" fill="#655EFE" fill-rule="nonzero"/></svg>
+        <h2 class="title">Start by adding checklists to the playbook</h2>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -97,13 +100,15 @@ export default {
   computed: {
     returnChecklists () {
       var list = []
-      this.checklists.forEach(checklist => {
-        const newList = this.playbook.checklists.filter(activeChecklist => {
-          if (activeChecklist.uid === checklist.uid) {
-            list.push(checklist)
-          }
+      if (this.checklists) {
+        this.checklists.forEach(checklist => {
+          const newList = this.playbook.checklists.filter(activeChecklist => {
+            if (activeChecklist.uid === checklist.uid) {
+              list.push(checklist)
+            }
+          })
         })
-      })
+      }
 
       return list
     }
@@ -357,5 +362,27 @@ select {
       margin-left: 5px;
     }
   }
+}
+
+.cta {
+ width: calc(80% - 10px);
+ position: relative;
+ .title {
+   color: $purple;
+   right: 140px;
+   top: 190px;
+   font-weight: 700;
+   font-size: 28px;
+   color: $purple;
+ }
+
+ .inner {
+   position: absolute;
+   top: calc(100% - 90px);
+   svg {
+     transform: rotate(-90deg);
+     margin-right: 10px;
+   }
+ }
 }
 </style>

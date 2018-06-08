@@ -26,7 +26,14 @@
           <div class="checklists-container" v-if="filterOn">
             <Checklist v-for="checklist in filteredChecklists" :data="checklist" :name="name"></Checklist>
           </div>
+          <div class="checklists-container" v-if="checklists.length === 0">
+            <svg width="68" height="81" xmlns="http://www.w3.org/2000/svg"><path d="M49.6 31.488h17.777L36.266.377 5.155 31.488h18.222c0 22.222-7.111 37.778-22.667 48.889 22.222-4.445 44.445-17.778 48.89-48.889z" fill="#655EFE" fill-rule="nonzero"/></svg>
+            <div class="text-container">
+              Create a new checklist!
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -164,6 +171,26 @@ export default {
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+
+    .text-container {
+      position: absolute;
+      right: 140px;
+      top: 190px;
+      font-weight: 700;
+      font-size: 28px;
+      color: $purple;
+
+      &:last-of-type {
+        // position: relative;
+      }
+    }
+
+    svg {
+      position: absolute;
+      right: 40px;
+      width: 80px;
+      height: auto;
+    }
   }
 }
 
